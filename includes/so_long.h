@@ -32,12 +32,20 @@ typedef struct s_file
 	size_t	count;
 }			t_file;
 
+typedef struct s_images
+{
+	void	**images;
+	size_t	count;
+}	t_images;
 typedef struct s_environment
 {
-	t_file			file;
-	t_pair			map[COUNT_PAIRS];
+	void		*mlx;
+	void		*window;
+	t_images	main_images;
+	t_file		file;
+	t_pair		map[COUNT_PAIRS];
+	size_t		count_uniq_map;
 }	t_environment;
-
 
 int	main(int argc, char	**argv);
 

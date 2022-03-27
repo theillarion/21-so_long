@@ -27,10 +27,23 @@ void	ft_initial_struct_file(t_file	*file)
 	}
 }
 
+bool	ft_initial_struct_images(t_images	*images, size_t	count)
+{
+	if (images != NULL)
+	{
+		images->count = count;
+		images->images = (void **)malloc((count + 1) * sizeof(*images->images));
+		images->images[count] = NULL;
+		return (true);
+	}
+	return (false);
+}
+
 void	ft_main_initial(t_environment	*env)
 {
 	if (env != NULL)
 	{
+		env->count_uniq_map = COUNT_PAIRS;
 		ft_initial_struct_file(&env->file);
 		ft_initial_struct_pair(env->map);
 	}
