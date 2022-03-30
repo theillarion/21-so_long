@@ -15,7 +15,7 @@ size_t	ft_get_value(const t_pair	*map, const char key)
 	else
 		return (SIZE_MAX);
 }
-
+/*
 size_t	ft_convert_to_index(const char key)
 {
 	if (key == '0')
@@ -31,3 +31,4 @@ size_t	ft_convert_to_index(const char key)
 	else
 		return (SIZE_MAX);
 }
+*/

@@ -28,7 +28,7 @@ static char	*ft_read_full_file(int fd)
 	return (file);
 }
 
-bool	ft_return_and_close(int fd)
+static bool	ft_return_and_close(int fd)
 {
 	close(fd);
 	return (false);

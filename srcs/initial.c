@@ -1,50 +1,63 @@
 #include "so_long.h"
 
-void	ft_initial_struct_pair(t_pair	*map)
+static void	ft_initial_pair(t_pair	*map)
 {
-	size_t	i;
+	u_short	i;
 
-	if (map != NULL)
-	{
-		map[EMPTY_SPACE].key = '0';
-		map[WALL].key = '1';
-		map[COLLECTIBLE].key = 'C';
-		map[EXIT].key = 'E';
-		map[START_POSITION].key = 'P';
-		i = 0;
-		while (i != COUNT_PAIRS)
-			map[i++].value = 0;
-	}
+	if (map == NULL)
+		return ;
+	map[SymbolIdle].key = '0';
+	map[SymbolWall].key = '1';
+	map[SymbolCollectible].key = 'C';
+	map[SymbolExit].key = 'E';
+	map[SymbolStartPosition].key = 'P';
+	i = 0;
+	while (i != COUNT_PAIRS)
+		map[i++].value = 0;
 }
 
-void	ft_initial_struct_file(t_file	*file)
+static void	ft_initial_file(t_file	*file)
 {
-	if (file != NULL)
-	{
-		file->count = 0;
-		file->length = 0;
-		file->lines = NULL;
-	}
+	if (file == NULL)
+		return ;
+	file->count = 0;
+	file->length = 0;
+	file->lines = NULL;
 }
 
-bool	ft_initial_struct_images(t_images	*images, size_t	count)
+static void	ft_initial_window(t_window	*window)
 {
-	if (images != NULL)
-	{
-		images->count = count;
-		images->images = (void **)malloc((count + 1) * sizeof(*images->images));
-		images->images[count] = NULL;
-		return (true);
-	}
-	return (false);
+	if (window == NULL)
+		return ;
+	window->ptr = NULL;
+	window->width = 0;
+	window->height = 0;
+	window->size_pixels = 0;
+	window->x = 0;
+	window->y = 0;
+	window->is_action = false;
+	window->current_position = PositionUp;
+	window->next_position = PositionUp;
 }
 
-void	ft_main_initial(t_environment	*env)
+void	ft_initial_array(t_array	*array)
 {
-	if (env != NULL)
-	{
-		env->count_uniq_map = COUNT_PAIRS;
-		ft_initial_struct_file(&env->file);
-		ft_initial_struct_pair(env->map);
-	}
+	array->count = 0;
+	array->ptr = NULL;
+}
+
+bool	ft_main_initial(t_environment	*env)
+{
+	if (env == NULL)
+		return (false);
+	env->mlx = mlx_init();
+	ft_initial_file(&env->file);
+	env->count_uniq_map = COUNT_PAIRS;
+	ft_initial_pair(env->map);
+	ft_initial_window(&env->game_w);
+	mlx_get_screen_size(env->mlx, (int *)&env->game_w.width,
+			(int *)&env->game_w.height);
+	if (env->game_w.width == 0 || env->game_w.height == 0)
+		return (false);
+	return (true);
 }

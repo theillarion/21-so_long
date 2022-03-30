@@ -12,8 +12,8 @@ static void	ft_clean(t_environment	*env)
 			ft_smart_free((void *)&env->file.lines[i]);
 			++i;
 		}
+		ft_smart_free((void *)&env->file.lines);
 	}
-	ft_smart_free((void *)&env->file.lines);
 }
 
 void	ft_fail(t_environment	*env, const char	*msg_err, bool is_errno)

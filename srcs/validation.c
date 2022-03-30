@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-bool	ft_check_wall(const t_environment env)
+static bool	ft_check_wall(const t_environment env)
 {
 	size_t	i;
 	size_t	j;
@@ -11,7 +11,7 @@ bool	ft_check_wall(const t_environment env)
 	{
 		while (env.file.lines[i][j])
 		{
-			if ((i == 0 || j == 0) && env.file.lines[i][j] != env.map[WALL].key)
+			if ((i == 0 || j == 0) && env.file.lines[i][j] != env.map[SymbolWall].key)
 				return (false);
 			++j;
 		}
@@ -20,7 +20,7 @@ bool	ft_check_wall(const t_environment env)
 	return (true);
 }
 
-bool	ft_check_size(const t_environment env)
+static bool	ft_check_size(const t_environment env)
 {
 	size_t	i;
 
@@ -36,11 +36,11 @@ bool	ft_check_size(const t_environment env)
 	return (true);
 }
 
-bool	ft_calc_count_symbols(t_environment	*env)
+static bool	ft_calc_count_symbols(t_environment	*env)
 {
 	size_t	i;
 	size_t	j;
-	//size_t	k;
+	size_t	k;
 
 	i = 0;
 	while (env->file.lines[i] != NULL)
@@ -48,15 +48,19 @@ bool	ft_calc_count_symbols(t_environment	*env)
 		j = 0;
 		while (env->file.lines[i][j] != '\0')
 		{
-			/*k = 0;
+			k = 0;
 			while (k != COUNT_PAIRS)
 			{
 				if (env->map[k].key == env->file.lines[i][j])
+				{
+					++env->map[k].value;
 					break ;
+				}
 				++k;
 			}
-			*/
-			if (env->file.lines[i][j] == '0')
+			if (k == COUNT_PAIRS)
+				return (false);
+			/*if (env->file.lines[i][j] == '0')
 				++env->map[EMPTY_SPACE].value;
 			else if (env->file.lines[i][j] == '1')
 				++env->map[WALL].value;
@@ -67,7 +71,7 @@ bool	ft_calc_count_symbols(t_environment	*env)
 			else if (env->file.lines[i][j] == 'P')
 				++env->map[START_POSITION].value;
 			else
-				return (false);
+				return (false);*/
 			++j;
 		}
 		++i;
@@ -75,10 +79,10 @@ bool	ft_calc_count_symbols(t_environment	*env)
 	return (true);
 }
 
-bool	ft_check_count_symbols(const t_environment env)
+static bool	ft_check_count_symbols(const t_environment env)
 {
-	if (env.map[START_POSITION].value != 1
-		|| env.map[EXIT].value < 1 || env.map[COLLECTIBLE].value < 1)
+	if (env.map[SymbolStartPosition].value != 1
+		|| env.map[SymbolExit].value < 1 || env.map[SymbolCollectible].value < 1)
 		return (false);
 	return (true);
 }
