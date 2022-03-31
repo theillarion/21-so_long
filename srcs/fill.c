@@ -27,13 +27,7 @@ bool	ft_fill_paths(t_paths	*paths, u_short	size_pixels)
 	return (true);
 }
 
-	//paths->path_to_idle = (void *)ft_strjoin(main_dir, "idle/idle.xpm");
-	//paths->path_to_wall = (void *)ft_strjoin(main_dir, "wall/wall.xpm");
-	//paths->path_to_collectible = (void *)ft_strjoin(main_dir,
-	//		"collectible/collectible.xpm");
-	//paths->path_to_exit = (void *)ft_strjoin(main_dir, "exit/exit.xpm");
-
-bool	ft_fill_images(t_environment	*env, u_short x, u_short y)
+bool	ft_fill_images(t_environment	*env, int *x, int *y)
 {
 	u_short	i;
 
@@ -43,33 +37,24 @@ bool	ft_fill_images(t_environment	*env, u_short x, u_short y)
 	i = 0;
 	while (i < env->paths.path_to_other.count)
 	{
-		ft_push_back(&env->images.other, mlx_xpm_file_to_image(env->mlx,
-				env->paths.path_to_other.ptr[i], (int *)&x, (int *)&y));
-		if (env->images.other.ptr == NULL || env->images.other.ptr[i++] == NULL
-			|| x != env->game_w.size_pixels || y != env->game_w.size_pixels)
+		ft_push_adrs(&env->images.other, mlx_xpm_file_to_image(env->mlx,
+				env->paths.path_to_other.ptr[i], x, y));
+		if (env->images.other.ptr[i++] == NULL || env->images.other.ptr == NULL
+			|| *x != env->game_w.size_pixels || *y != env->game_w.size_pixels)
 			return (false);
 	}
 	ft_initial_array(&env->images.character);
 	i = 0;
 	while (i < env->paths.path_to_character.count)
 	{
-		ft_push_back(&env->images.character, mlx_xpm_file_to_image(env->mlx,
-				env->paths.path_to_character.ptr[i], (int *)&x, (int *)&y));
-		if (env->images.character.ptr || env->images.character.ptr[i++] == NULL
-			|| x != env->game_w.size_pixels || y != env->game_w.size_pixels)
+		ft_push_adrs(&env->images.character, mlx_xpm_file_to_image(env->mlx,
+				env->paths.path_to_character.ptr[i], x, y));
+		if (env->images.character.ptr[i++] == NULL || env->images.character.ptr == NULL
+			|| *x != env->game_w.size_pixels || *y != env->game_w.size_pixels)
 			return (false);
 	}
 	return (true);
 }
-
-	/*env->images.idle = mlx_xpm_file_to_image(env->mlx,
-			env->paths.path_to_idle, NULL, NULL);
-	env->images.wall = mlx_xpm_file_to_image(env->mlx,
-			env->paths.path_to_wall, NULL, NULL);
-	env->images.collectible = mlx_xpm_file_to_image(env->mlx,
-			env->paths.path_to_collectible, NULL, NULL);
-	env->images.exit = mlx_xpm_file_to_image(env->mlx,
-			env->paths.path_to_exit, NULL, NULL);*/
 
 static bool	ft_handler_symbols(t_environment	*env, const char symbol,
 		const u_short x, const u_short y)
@@ -81,9 +66,7 @@ static bool	ft_handler_symbols(t_environment	*env, const char symbol,
 	{
 		if (symbol == env->map[i].key)
 		{
-			mlx_put_image_to_window(env->mlx, env->game_w.ptr,
-				env->images.other.ptr[i], x * env->game_w.size_pixels,
-				y * env->game_w.size_pixels);
+			mlx_put_image_to_window(env->mlx, env->game_w.ptr, env->images.other.ptr[i], x * env->game_w.size_pixels, y * env->game_w.size_pixels);
 			return (true);
 		}
 		++i;
@@ -101,27 +84,6 @@ static bool	ft_handler_symbols(t_environment	*env, const char symbol,
 		return (false);
 }
 
-/*if (symbol == env->map[SymbolIdle].key)
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr, env->images.idle,
-			x * env->game_w.size_pixels, y * env->game_w.size_pixels);
-	else if (symbol == env->map[SymbolWall].key)
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr, env->images.wall,
-			x * env->game_w.size_pixels, y * env->game_w.size_pixels);
-	else if (symbol == env->map[SymbolCollectible].key)
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr,
-			env->images.collectible,
-			x * env->game_w.size_pixels, y * env->game_w.size_pixels);
-	else if (symbol == env->map[SymbolExit].key)
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr, env->images.exit,
-			x * env->game_w.size_pixels, y * env->game_w.size_pixels);
-	else if (symbol == env->map[SymbolStartPosition].key)
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr,
-			env->images.character.ptr[PositionUp],
-			x * env->game_w.size_pixels, y * env->game_w.size_pixels);
-	else
-		return (false);
-	return (true);*/
-
 bool	ft_fill_map(t_environment	*env)
 {
 	u_short	i;
@@ -130,12 +92,12 @@ bool	ft_fill_map(t_environment	*env)
 	if (env == NULL)
 		return (false);
 	i = 0;
-	while (i < env->file.length)
+	while (i < env->file.count)
 	{
 		j = 0;
-		while (j < env->file.count)
+		while (j < env->file.length)
 		{
-			if (ft_handler_symbols(env, env->file.lines[i][j], i, j) == false)
+			if (ft_handler_symbols(env, env->file.lines[i][j], j, i) == false)
 				return (false);
 			++j;
 		}
@@ -143,48 +105,51 @@ bool	ft_fill_map(t_environment	*env)
 	}
 	return (true);
 }
-/*
-void	ft_output(const t_paths	*paths)
+
+void	ft_output(const t_images	*images)
 {
 	size_t	i;
 
-	printf("Size character: %d\n", paths->path_to_character.count);
+	printf("Size character: %d\n", images->character.count);
 	i = 0;
-	if (paths->path_to_character.ptr == NULL)
+	if (images->character.ptr == NULL)
 	{
 		printf("NULL\n");
 		return ;
 	}
-	while (i < paths->path_to_character.count && paths->path_to_character.ptr[i])
+	while (i < images->character.count && images->character.ptr[i])
 	{
-		printf("Elem %%%ld: %s (%p)\n", i, (char *)paths->path_to_character.ptr[i], paths->path_to_character.ptr[i]);
+		printf("Elem %%%ld: %s (%p)\n", i, (char *)images->character.ptr[i], images->character.ptr[i]);
 		++i;
 	}
-	printf("\nSize other: %d\n", paths->path_to_other.count);
+	printf("\nSize other: %d\n", images->other.count);
 	i = 0;
-	if (paths->path_to_other.ptr == NULL)
+	if (images->other.ptr == NULL)
 	{
 		printf("NULL\n");
 		return ;
 	}
-	while (i < paths->path_to_other.count && paths->path_to_other.ptr[i])
+	while (i < images->other.count && images->other.ptr[i])
 	{
-		printf("Elem %%%ld: %s (%p)\n", i, (char *)paths->path_to_other.ptr[i], paths->path_to_other.ptr[i]);
+		printf("Elem %%%ld: %s (%p)\n", i, (char *)images->other.ptr[i], images->other.ptr[i]);
 		++i;
 	}
-}*/
+}
 
 bool	ft_main_fill(t_environment	*env)
 {
+	int x;
+	int y;
+
 	if (env == NULL || env->mlx == NULL)
 		return (false);
-	env->game_w.size_pixels = ft_calc_size_pixel(*env, 64);
+	env->game_w.size_pixels = ft_calc_size_pixel(*env, 128);
 	if (env->game_w.size_pixels == 0)
 			return (false);
 	env->game_w.width = env->game_w.size_pixels * env->file.length;
 	env->game_w.height = env->game_w.size_pixels * env->file.count;
 	if (ft_fill_paths(&env->paths, env->game_w.size_pixels) == false
-		|| ft_fill_images(env, 0, 0) == false)
+		|| ft_fill_images(env, &x, &y) == false)
 		return (false);
 	env->game_w.ptr = mlx_new_window(env->mlx, env->game_w.width,
 		env->game_w.height, "So_long");

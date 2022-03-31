@@ -1,0 +1,26 @@
+/* XPM */
+static char *collectible_4[] = {
+/* columns rows colors chars-per-pixel */
+"4 4 16 1 ",
+"  c #7B703D",
+". c #7F733E",
+"X c #777A46",
+"o c #7E7A40",
+"O c #777B4A",
+"+ c #7A7A48",
+"@ c #7E7E4A",
+"# c #81763D",
+"$ c #837D41",
+"% c #8B7C46",
+"& c #817E48",
+"* c #817F4A",
+"= c #C99B3D",
+"- c #D19A36",
+"; c #E49D31",
+": c #EFAF5B",
+/* pixels */
+"+$%&",
+"X-:.",
+"O=; ",
+"&o#@"
+};

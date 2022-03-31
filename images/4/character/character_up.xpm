@@ -1,0 +1,24 @@
+/* XPM */
+static char *character_up[] = {
+/* columns rows colors chars-per-pixel */
+"4 4 14 1 ",
+"  c #6C633C",
+". c #6E663F",
+"X c #71673D",
+"o c #574D46",
+"O c #5D5445",
+"+ c #5F5444",
+"@ c #674D45",
+"# c #684E45",
+"$ c #655651",
+"% c #6D6640",
+"& c #786F46",
+"* c #796F46",
+"= c #756F48",
+"- c #77724A",
+/* pixels */
+" OOX",
+"*$$*",
+"-@#=",
+".oo."
+};

@@ -45,7 +45,7 @@ bool	ft_get_file(t_file	*file, const char	*path)
 	if (fd < 0)
 		return (false);
 	buff = ft_read_full_file(fd);
-	if (ft_strnstr(path, ".bmp", ft_strlen(path)) == NULL)
+	if (ft_strnstr(path, ".ber", ft_strlen(path)) == NULL)
 		return (ft_return_and_close(fd));
 	if (buff == NULL || *buff == '\0')
 		return (ft_return_and_close(fd));

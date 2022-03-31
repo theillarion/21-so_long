@@ -1,0 +1,24 @@
+/* XPM */
+static char *character_left[] = {
+/* columns rows colors chars-per-pixel */
+"4 4 14 1 ",
+"  c #6C633C",
+". c #6F663D",
+"X c #6D663F",
+"o c #564C45",
+"O c #5E5444",
+"+ c #5E5544",
+"@ c #674D45",
+"# c #684E45",
+"$ c #655651",
+"% c #706740",
+"& c #766D46",
+"* c #776F46",
+"= c #777048",
+"- c #7A7148",
+/* pixels */
+" *-%",
+"O$@o",
+"O$#o",
+"X*=X"
+};

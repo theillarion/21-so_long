@@ -135,6 +135,7 @@ bool	ft_validation(t_environment	*env);
 //		array.c
 void	ft_push_back(t_array	*array, const void	*elem);
 void	ft_delete_all(t_array	*array);
+void	ft_push_adrs(t_array	*array, void	*elem);
 
 //		calc.c
 u_short	ft_calc_size_pixel(const t_environment env,

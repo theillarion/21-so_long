@@ -1,0 +1,24 @@
+/* XPM */
+static char *Wall_with_dirt_4[] = {
+/* columns rows colors chars-per-pixel */
+"4 4 14 1 ",
+"  c #874E4B",
+". c #8F574D",
+"X c #975F4E",
+"o c #995851",
+"O c #9C5B52",
+"+ c #9D5C52",
+"@ c #9F6750",
+"# c #B97957",
+"$ c #BA7A57",
+"% c #BD7D58",
+"& c #D08460",
+"* c #D78B61",
+"= c #D78B62",
+"- c #D98D62",
+/* pixels */
+"@%$X",
+"%&=+",
+"$=-o",
+".Oo "
+};
