@@ -7,8 +7,8 @@ t_ushort	ft_calc_size_pixel(const t_environment env,
 	t_ushort	pixel_x;
 	t_ushort	pixel_y;
 
-	pixel_x = env.game_w.width / env.file.length;
-	pixel_y = env.game_w.height / env.file.count;
+	pixel_x = env.main_win.width / env.file.length;
+	pixel_y = env.main_win.height / env.file.count;
 	if (pixel_x <= pixel_y)
 		pixel_min = pixel_x;
 	else

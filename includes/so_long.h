@@ -67,38 +67,37 @@ typedef struct s_images
 {
 	t_array	character;
 	t_array	other;
-	void	*wall;
-	void	*idle;
-	void	*collectible;
-	void	*exit;
+	void	*game_over;
 }	t_images;
 
 typedef struct s_paths
 {
 	t_array	path_to_character;
 	t_array	path_to_other;
-	void	*path_to_wall;
-	void	*path_to_idle;
-	void	*path_to_collectible;
-	void	*path_to_exit;
+	void	*path_to_game_over;
 }	t_paths;
 
-typedef struct s_window
+typedef struct s_game
 {
-	void		*ptr;
-	t_ushort	width;
-	t_ushort	height;
 	t_ushort	size_pixels;
 	t_ushort	x;
 	t_ushort	y;
 	t_ushort	current_position;
 	t_ushort	next_position;
 	bool		is_action;
+}		t_game;
+typedef struct s_window
+{
+	void		*ptr;
+	t_ushort	width;
+	t_ushort	height;
 }		t_window;
 typedef struct s_environment
 {
 	void		*mlx;
-	t_window	game_w;
+	t_window	main_win;
+	t_window	game_over_win;
+	t_game		game;
 	t_file		file;
 	t_images	images;
 	t_paths		paths;
@@ -120,7 +119,7 @@ void		ft_success(t_environment	*env, const char	*msg);
 int			ft_destroy(t_environment	*env);
 
 //			render.c
-int			ft_close_with_key(int keycode, t_environment	*env);
+int			ft_action_key(int keycode, t_environment	*env);
 int			render_next_frame(t_environment	*env);
 
 //			free.c
@@ -142,6 +141,9 @@ bool		ft_validation(t_environment	*env);
 void		ft_push_back(t_array	*array, const void	*elem);
 void		ft_delete_all(t_array	*array);
 void		ft_push_adrs(t_array	*array, void	*elem);
+
+//			game_over.c
+void		ft_game_over(t_environment	*env);
 
 //		calc.c
 t_ushort	ft_calc_size_pixel(const t_environment env,

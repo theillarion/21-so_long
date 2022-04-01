@@ -1,29 +1,29 @@
 #include "so_long.h"
 
-int	ft_close_with_key(int keycode, t_environment	*env)
+int	ft_action_key(int keycode, t_environment	*env)
 {
 	if (keycode == ESC)
 		ft_destroy(env);
 	else if (keycode == LEFT || keycode == UP || keycode == RIGHT
 		|| keycode == DOWN)
 	{
-		env->game_w.is_action = true;
+		env->game.is_action = true;
 		if (keycode == LEFT)
-			env->game_w.next_position = PositionLeft;
+			env->game.next_position = PositionLeft;
 		else if (keycode == UP)
-			env->game_w.next_position = PositionUp;
+			env->game.next_position = PositionUp;
 		else if (keycode == RIGHT)
-			env->game_w.next_position = PositionRight;
+			env->game.next_position = PositionRight;
 		else
-			env->game_w.next_position = PositionDown;
+			env->game.next_position = PositionDown;
 	}
 	return (0);
 }
 
 static bool	ft_check(t_environment	*env, int y, int x)
 {
-	x /= env->game_w.size_pixels;
-	y /= env->game_w.size_pixels;
+	x /= env->game.size_pixels;
+	y /= env->game.size_pixels;
 	if (env->file.lines[y][x] == env->map[SymbolIdle].key
 		|| env->file.lines[y][x] == env->map[SymbolStartPosition].key)
 		return (true);
@@ -45,22 +45,22 @@ static bool	ft_check(t_environment	*env, int y, int x)
 
 static bool	fd_do_step(t_environment	*env, int	*x, int	*y)
 {
-	if (env->game_w.current_position == PositionUp
-		&& *y - env->game_w.size_pixels >= 0
-		&& ft_check(env, *y - env->game_w.size_pixels, *x) == true)
-		*y -= env->game_w.size_pixels;
-	else if (env->game_w.current_position == PositionDown
-		&& *y + env->game_w.size_pixels < env->game_w.height
-		&& ft_check(env, *y + env->game_w.size_pixels, *x) == true)
-		*y += env->game_w.size_pixels;
-	else if (env->game_w.current_position == PositionLeft
-		&& *x - env->game_w.size_pixels >= 0
-		&& ft_check(env, *y, *x - env->game_w.size_pixels) == true)
-		*x -= env->game_w.size_pixels;
-	else if (env->game_w.current_position == PositionRight
-		&& *x + env->game_w.size_pixels < env->game_w.width
-		&& ft_check(env, *y, *x + env->game_w.size_pixels) == true)
-		*x += env->game_w.size_pixels;
+	if (env->game.current_position == PositionUp
+		&& *y - env->game.size_pixels >= 0
+		&& ft_check(env, *y - env->game.size_pixels, *x) == true)
+		*y -= env->game.size_pixels;
+	else if (env->game.current_position == PositionDown
+		&& *y + env->game.size_pixels < env->main_win.height
+		&& ft_check(env, *y + env->game.size_pixels, *x) == true)
+		*y += env->game.size_pixels;
+	else if (env->game.current_position == PositionLeft
+		&& *x - env->game.size_pixels >= 0
+		&& ft_check(env, *y, *x - env->game.size_pixels) == true)
+		*x -= env->game.size_pixels;
+	else if (env->game.current_position == PositionRight
+		&& *x + env->game.size_pixels < env->main_win.width
+		&& ft_check(env, *y, *x + env->game.size_pixels) == true)
+		*x += env->game.size_pixels;
 	else
 		return (false);
 	return (true);
@@ -68,27 +68,30 @@ static bool	fd_do_step(t_environment	*env, int	*x, int	*y)
 
 static void	ft_do_action(t_environment	*env, int x, int y, int	*i)
 {
-	if (env->game_w.current_position != env->game_w.next_position)
+	if (env->game.current_position != env->game.next_position)
 	{
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr,
-			env->images.character.ptr[env->game_w.next_position], x, y);
-		env->game_w.current_position = env->game_w.next_position;
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
+			env->images.character.ptr[env->game.next_position], x, y);
+		env->game.current_position = env->game.next_position;
 		++*i;
 	}
 	else
 	{
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr,
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.other.ptr[SymbolIdle], x, y);
 		if (fd_do_step(env, &x, &y) == true)
 			++*i;
-		env->game_w.x = x / env->game_w.size_pixels;
-		env->game_w.y = y / env->game_w.size_pixels;
-		mlx_put_image_to_window(env->mlx, env->game_w.ptr,
-			env->images.character.ptr[env->game_w.current_position], x, y);
+		env->game.x = x / env->game.size_pixels;
+		env->game.y = y / env->game.size_pixels;
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
+			env->images.character.ptr[env->game.current_position], x, y);
 	}
 	if (env->map[SymbolCollectible].value == 0
-		&& env->map[SymbolExit].value == 0)
-		ft_destroy(env);
+	&& env->map[SymbolExit].value == 0)
+	{
+		env->game.is_action = false;
+		ft_game_over(env);
+	}
 }
 
 int	render_next_frame(t_environment	*env)
@@ -98,11 +101,11 @@ int	render_next_frame(t_environment	*env)
 	int			x;
 	int			y;
 
-	if (env != NULL && env->game_w.is_action == true)
+	if (env != NULL && env->game.is_action == true)
 	{
 		mlx_do_sync(env->mlx);
-		x = env->game_w.x * env->game_w.size_pixels;
-		y = env->game_w.y * env->game_w.size_pixels;
+		x = env->game.x * env->game.size_pixels;
+		y = env->game.y * env->game.size_pixels;
 		prev_i = i;
 		ft_do_action(env, x, y, &i);
 		if (prev_i != i)
@@ -110,7 +113,7 @@ int	render_next_frame(t_environment	*env)
 			ft_putnbr_fd(i, STDOUT_FILENO);
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		}
-		env->game_w.is_action = false;
+		env->game.is_action = false;
 	}
 	return (0);
 }

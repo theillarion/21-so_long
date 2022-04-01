@@ -58,3 +58,9 @@ void	ft_delete_all(t_array	*array)
 	}
 	free(array->ptr);
 }
+
+void	ft_initial_array(t_array	*array)
+{
+	array->count = 0;
+	array->ptr = NULL;
+}

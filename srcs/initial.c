@@ -32,18 +32,18 @@ static void	ft_initial_window(t_window	*window)
 	window->ptr = NULL;
 	window->width = 0;
 	window->height = 0;
-	window->size_pixels = 0;
-	window->x = 0;
-	window->y = 0;
-	window->is_action = false;
-	window->current_position = PositionUp;
-	window->next_position = PositionUp;
 }
 
-void	ft_initial_array(t_array	*array)
+static void ft_initual_game(t_game	*game)
 {
-	array->count = 0;
-	array->ptr = NULL;
+	if (game == NULL)
+		return ;
+	game->size_pixels = 0;
+	game->x = 0;
+	game->y = 0;
+	game->is_action = false;
+	game->current_position = PositionUp;
+	game->next_position = PositionUp;
 }
 
 bool	ft_main_initial(t_environment	*env)
@@ -54,11 +54,13 @@ bool	ft_main_initial(t_environment	*env)
 	ft_initial_file(&env->file);
 	env->count_uniq_map = COUNT_PAIRS;
 	ft_initial_pair(env->map);
-	ft_initial_window(&env->game_w);
-	mlx_get_screen_size(env->mlx, (int *)&env->game_w.width,
-		(int *)&env->game_w.height);
-	env->game_w.height *= 0.9;
-	if (env->game_w.width == 0 || env->game_w.height == 0)
+	ft_initial_window(&env->main_win);
+	ft_initial_window(&env->game_over_win);
+	ft_initual_game(&env->game);
+	mlx_get_screen_size(env->mlx, (int *)&env->main_win.width,
+		(int *)&env->main_win.height);
+	env->main_win.height *= 0.9;
+	if (env->main_win.width == 0 || env->main_win.height == 0)
 		return (false);
 	return (true);
 }

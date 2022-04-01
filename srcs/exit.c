@@ -9,10 +9,11 @@ static void	ft_clean(t_environment	*env)
 	{
 		while (i != env->file.count || env->file.lines[i] != NULL)
 		{
-			ft_smart_free((void *)&env->file.lines[i]);
+			free(env->file.lines[i]);
 			++i;
 		}
-		ft_smart_free((void *)&env->file.lines);
+		free(env->file.lines);
+		env->file.lines = NULL;
 	}
 }
 
@@ -35,7 +36,15 @@ void	ft_success(t_environment	*env, const char	*msg)
 
 int	ft_destroy(t_environment	*env)
 {
-	mlx_destroy_window(env->mlx, env->game_w.ptr);
+	if (env == NULL)
+	{
+		//...
+		exit(EXIT_FAILURE);
+	}
+	if (env->game_over_win.ptr != NULL)
+		mlx_destroy_window(env->mlx, env->game_over_win.ptr);
+	if (env->main_win.ptr != NULL)
+		mlx_destroy_window(env->mlx, env->main_win.ptr);
 	mlx_destroy_display(env->mlx);
 	exit(EXIT_SUCCESS);
 	return (0);

@@ -14,17 +14,17 @@ LIBMLX			=	${LIBMLX_PATH}/${LIBMLX_NAME}
 CC 				=	gcc
 CC_FLAGS		=	-Wall -Werror -Wextra
 CC_FLAGS_D		=	-g
-HEADER			=	includes/header.h
+HEADER			=	includes/so_long.h
 SRCS			=	${wildcard srcs/*.c}
 OBJS			=	${SRCS:%.c=%.o}
 OBJS_D			=	${SRCS:%.c=%_debug.o}
 INCLUDES		=	-Iincludes
 RM				=	rm -rf
 
-%.o				:	%.c
+%.o				:	%.c ${HEADER}
 					$(CC) ${CC_FLAGS} ${INCLUDES} -c $< -o $@
 
-%_debug.o		:	%.c
+%_debug.o		:	%.c ${HEADER}
 					$(CC) ${CC_FLAGS_D} ${CC_FLAGS} ${INCLUDES} -c $< -o $@
 
 all				:	${NAME}
