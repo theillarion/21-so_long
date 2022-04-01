@@ -32,3 +32,11 @@ void	ft_success(t_environment	*env, const char	*msg)
 	ft_putendl_fd((char *)msg, STDOUT_FILENO);
 	exit(EXIT_SUCCESS);
 }
+
+int	ft_destroy(t_environment	*env)
+{
+	mlx_destroy_window(env->mlx, env->game_w.ptr);
+	mlx_destroy_display(env->mlx);
+	exit(EXIT_SUCCESS);
+	return (0);
+}

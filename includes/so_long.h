@@ -17,7 +17,7 @@
 # define COUNT_PAIRS 5
 # define BUFFER_SIZE 1024
 
-typedef unsigned short u_short;
+typedef unsigned short	t_ushort;
 
 enum e_keys
 {
@@ -51,16 +51,16 @@ typedef struct s_file
 	size_t	length;
 	size_t	count;
 }			t_file;
-typedef	struct s_pair
+typedef struct s_pair
 {
 	char			key;
 	unsigned int	value;
-}			t_pair;
+}					t_pair;
 
 typedef struct s_array
 {
-	void	**ptr;
-	u_short	count;
+	void		**ptr;
+	t_ushort	count;
 }	t_array;
 
 typedef struct s_images
@@ -85,15 +85,15 @@ typedef struct s_paths
 
 typedef struct s_window
 {
-	void	*ptr;
-	u_short	width;
-	u_short	height;
-	u_short	size_pixels;
-	u_short	x;
-	u_short	y;
-	u_short	current_position;
-	u_short	next_position;
-	bool	is_action;
+	void		*ptr;
+	t_ushort	width;
+	t_ushort	height;
+	t_ushort	size_pixels;
+	t_ushort	x;
+	t_ushort	y;
+	t_ushort	current_position;
+	t_ushort	next_position;
+	bool		is_action;
 }		t_window;
 typedef struct s_environment
 {
@@ -107,38 +107,44 @@ typedef struct s_environment
 }	t_environment;
 
 //		main.c
-int		main(int argc, char	**argv);
+int			main(int argc, char	**argv);
 
-//		initial.c
-void	ft_initial_array(t_array	*array);
-bool	ft_main_initial(t_environment	*env);
+//			initial.c
+void		ft_initial_array(t_array	*array);
+bool		ft_main_initial(t_environment	*env);
 
-//		exit.c
-void	ft_fail(t_environment	*env, const char	*msg_err, bool is_errno);
-void	ft_success(t_environment	*env, const char	*msg);
+//			exit.c
+void		ft_fail(t_environment	*env, const char	*msg_err,
+				bool is_errno);
+void		ft_success(t_environment	*env, const char	*msg);
+int			ft_destroy(t_environment	*env);
 
-//		free.c
-void	ft_smart_free(void	**memory);
+//			render.c
+int			ft_close_with_key(int keycode, t_environment	*env);
+int			render_next_frame(t_environment	*env);
 
-//		get.c
-char	*ft_get_main_directory(u_short	size_pixels);
+//			free.c
+void		ft_smart_free(void	**memory);
 
-//		fill.c
-bool	ft_main_fill(t_environment	*env);
+//			get.c
+char		*ft_get_main_directory(t_ushort	size_pixels);
 
-//		read_file.c
-bool	ft_get_file(t_file	*file, const char	*path);
+//			fill.c
+bool		ft_main_fill(t_environment	*env);
 
-//		validation.c
-bool	ft_validation(t_environment	*env);
+//			read_file.c
+bool		ft_get_file(t_file	*file, const char	*path);
 
-//		array.c
-void	ft_push_back(t_array	*array, const void	*elem);
-void	ft_delete_all(t_array	*array);
-void	ft_push_adrs(t_array	*array, void	*elem);
+//			validation.c
+bool		ft_validation(t_environment	*env);
+
+//			array.c
+void		ft_push_back(t_array	*array, const void	*elem);
+void		ft_delete_all(t_array	*array);
+void		ft_push_adrs(t_array	*array, void	*elem);
 
 //		calc.c
-u_short	ft_calc_size_pixel(const t_environment env,
-		u_short	size_pixel);
+t_ushort	ft_calc_size_pixel(const t_environment env,
+				t_ushort	size_pixel);
 
 #endif

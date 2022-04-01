@@ -2,7 +2,7 @@
 
 static void	ft_initial_pair(t_pair	*map)
 {
-	u_short	i;
+	t_ushort	i;
 
 	if (map == NULL)
 		return ;
@@ -56,7 +56,8 @@ bool	ft_main_initial(t_environment	*env)
 	ft_initial_pair(env->map);
 	ft_initial_window(&env->game_w);
 	mlx_get_screen_size(env->mlx, (int *)&env->game_w.width,
-			(int *)&env->game_w.height);
+		(int *)&env->game_w.height);
+	env->game_w.height *= 0.9;
 	if (env->game_w.width == 0 || env->game_w.height == 0)
 		return (false);
 	return (true);

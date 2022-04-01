@@ -1,11 +1,11 @@
 #include "so_long.h"
 
-u_short	ft_calc_size_pixel(const t_environment env,
-		u_short	size_pixel)
+t_ushort	ft_calc_size_pixel(const t_environment env,
+		t_ushort	size_pixel)
 {
-	u_short	pixel_min;
-	u_short	pixel_x;
-	u_short	pixel_y;
+	t_ushort	pixel_min;
+	t_ushort	pixel_x;
+	t_ushort	pixel_y;
 
 	pixel_x = env.game_w.width / env.file.length;
 	pixel_y = env.game_w.height / env.file.count;

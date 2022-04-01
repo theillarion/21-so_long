@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-char	*ft_get_main_directory(u_short	size_pixels)
+char	*ft_get_main_directory(t_ushort	size_pixels)
 {
 	char	*backup;
 	char	*result;
