@@ -4,10 +4,18 @@ int	ft_close_with_key(int keycode, t_environment	*env)
 {
 	if (keycode == ESC)
 		ft_destroy(env);
-	else if (keycode >= LEFT && keycode <= DOWN)
+	else if (keycode == LEFT || keycode == UP || keycode == RIGHT
+		|| keycode == DOWN)
 	{
 		env->game_w.is_action = true;
-		env->game_w.next_position = keycode - LEFT;
+		if (keycode == LEFT)
+			env->game_w.next_position = PositionLeft;
+		else if (keycode == UP)
+			env->game_w.next_position = PositionUp;
+		else if (keycode == RIGHT)
+			env->game_w.next_position = PositionRight;
+		else
+			env->game_w.next_position = PositionDown;
 	}
 	return (0);
 }

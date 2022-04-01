@@ -22,10 +22,10 @@ typedef unsigned short	t_ushort;
 enum e_keys
 {
 	ESC		= 65307,
-	LEFT	= 65361,
-	UP		= 65362,
-	RIGHT	= 65363,
-	DOWN	= 65364
+	LEFT	= 97,
+	UP		= 119,
+	RIGHT	= 100,
+	DOWN	= 115
 };
 
 enum e_position
