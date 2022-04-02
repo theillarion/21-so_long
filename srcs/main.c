@@ -18,10 +18,10 @@ int	main(int argc, char	**argv)
 		mlx_hook(env.main_win.ptr, KeyPress | KeyRelease,
 			KeyPressMask | KeyReleaseMask, ft_action_key, &env);
 		mlx_hook(env.main_win.ptr, DestroyNotify,
-			ButtonReleaseMask, ft_destroy, &env);
+			ButtonReleaseMask, ft_success, &env);
 		mlx_loop_hook(env.mlx, render_next_frame, &env);
 		mlx_loop(env.mlx);
-		exit(EXIT_SUCCESS);
+		ft_success(&env);
 	}
 	ft_putendl_fd("Error\nwrong arguments", STDOUT_FILENO);
 	exit(EXIT_FAILURE);

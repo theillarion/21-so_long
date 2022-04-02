@@ -7,20 +7,18 @@ bool	ft_fill_paths(t_paths	*paths, t_ushort	size_pixels)
 	if (paths == NULL || size_pixels == 0)
 		return (false);
 	main_dir = ft_get_main_directory(size_pixels);
-	ft_initial_array(&paths->path_to_other);
-	ft_push_back(&paths->path_to_other, ft_strjoin(main_dir, "idle/idle.xpm"));
-	ft_push_back(&paths->path_to_other, ft_strjoin(main_dir, "wall/wall.xpm"));
-	ft_push_back(&paths->path_to_other,
+	ft_push_move(&paths->path_to_other, ft_strjoin(main_dir, "idle/idle.xpm"));
+	ft_push_move(&paths->path_to_other, ft_strjoin(main_dir, "wall/wall.xpm"));
+	ft_push_move(&paths->path_to_other,
 		(void *)ft_strjoin(main_dir, "collectible/collectible.xpm"));
-	ft_push_back(&paths->path_to_other, ft_strjoin(main_dir, "exit/exit.xpm"));
-	ft_initial_array(&paths->path_to_character);
-	ft_push_back(&paths->path_to_character, (void *)ft_strjoin(main_dir,
+	ft_push_move(&paths->path_to_other, ft_strjoin(main_dir, "exit/exit.xpm"));
+	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
 			"character/character_left.xpm"));
-	ft_push_back(&paths->path_to_character, (void *)ft_strjoin(main_dir,
+	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
 			"character/character_up.xpm"));
-	ft_push_back(&paths->path_to_character, (void *)ft_strjoin(main_dir,
+	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
 			"character/character_right.xpm"));
-	ft_push_back(&paths->path_to_character, (void *)ft_strjoin(main_dir,
+	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
 			"character/character_down.xpm"));
 	paths->path_to_game_over = ft_strdup("images/game_over_600_x_400.xpm");
 	if (main_dir != NULL)
@@ -32,32 +30,28 @@ bool	ft_fill_images(t_environment	*env, int *x, int *y)
 {
 	t_ushort	i;
 
-	if (env == NULL && env->mlx == NULL && env->main_win.ptr == NULL)
+	if (env == NULL || env->mlx == NULL)
 		return (false);
-	ft_initial_array(&env->images.other);
 	i = 0;
 	while (i < env->paths.path_to_other.count)
 	{
-		ft_push_adrs(&env->images.other, mlx_xpm_file_to_image(env->mlx,
+		ft_push_move(&env->images.other, mlx_xpm_file_to_image(env->mlx,
 				env->paths.path_to_other.ptr[i], x, y));
 		if (env->images.other.ptr[i++] == NULL || env->images.other.ptr == NULL
 			|| *x != env->game.size_pixels || *y != env->game.size_pixels)
 			return (false);
 	}
-	ft_initial_array(&env->images.character);
 	i = 0;
 	while (i < env->paths.path_to_character.count)
 	{
-		ft_push_adrs(&env->images.character, mlx_xpm_file_to_image(env->mlx,
+		ft_push_move(&env->images.character, mlx_xpm_file_to_image(env->mlx,
 				env->paths.path_to_character.ptr[i], x, y));
 		if (!env->images.character.ptr[i++] || !env->images.character.ptr
 			|| *x != env->game.size_pixels || *y != env->game.size_pixels)
 			return (false);
 	}
-	env->images.game_over = NULL;
-	env->images.game_over = mlx_xpm_file_to_image(env->mlx, env->paths.path_to_game_over, x, y);
-	if (env->images.game_over == NULL || *x != 600 || *y != 400)
-		return (false);
+	env->images.game_over = mlx_xpm_file_to_image(env->mlx,
+			env->paths.path_to_game_over, x, y);
 	return (true);
 }
 
@@ -113,12 +107,29 @@ bool	ft_fill_map(t_environment	*env)
 	return (true);
 }
 
+bool	ft_create_mlx(t_environment	*env)
+{
+	if (env == NULL)
+		return (false);
+	env->mlx = mlx_init();
+	if (env->mlx == NULL)
+		return (false);
+	mlx_get_screen_size(env->mlx, (int *)&env->main_win.width,
+		(int *)&env->main_win.height);
+	if (env->main_win.width == 0 || env->main_win.height == 0)
+		return (false);
+	env->main_win.height *= 0.9;
+	return (true);
+}
+
 bool	ft_main_fill(t_environment	*env)
 {
 	int	x;
 	int	y;
 
-	if (env == NULL || env->mlx == NULL)
+	if (env == NULL)
+		return (false);
+	if (ft_create_mlx(env) == false)
 		return (false);
 	env->game.size_pixels = ft_calc_size_pixel(*env, 128);
 	if (env->game.size_pixels == 0)
@@ -127,6 +138,8 @@ bool	ft_main_fill(t_environment	*env)
 	env->main_win.height = env->game.size_pixels * env->file.count;
 	if (ft_fill_paths(&env->paths, env->game.size_pixels) == false
 		|| ft_fill_images(env, &x, &y) == false)
+		return (false);
+	if (x != 600 || y != 400)
 		return (false);
 	env->main_win.ptr = mlx_new_window(env->mlx, env->main_win.width,
 			env->main_win.height, "So_long");

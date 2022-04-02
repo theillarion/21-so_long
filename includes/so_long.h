@@ -21,11 +21,11 @@ typedef unsigned short	t_ushort;
 
 enum e_keys
 {
-	ESC		= 65307,
-	LEFT	= 97,
-	UP		= 119,
-	RIGHT	= 100,
-	DOWN	= 115
+	KeyEsc		= 65307,
+	KeyLeft		= 97,
+	KeyUp		= 119,
+	KeyRight	= 100,
+	KeyDown		= 115
 };
 
 enum e_position
@@ -42,7 +42,8 @@ enum e_symbols_map
 	SymbolWall,
 	SymbolCollectible,
 	SymbolExit,
-	SymbolStartPosition
+	SymbolStartPosition,
+	CountSymbols
 };
 
 typedef struct s_file
@@ -85,6 +86,7 @@ typedef struct s_game
 	t_ushort	current_position;
 	t_ushort	next_position;
 	bool		is_action;
+	bool		is_end_game;
 }		t_game;
 typedef struct s_window
 {
@@ -101,7 +103,7 @@ typedef struct s_environment
 	t_file		file;
 	t_images	images;
 	t_paths		paths;
-	t_pair		map[COUNT_PAIRS];
+	t_pair		map[CountSymbols];
 	size_t		count_uniq_map;
 }	t_environment;
 
@@ -112,11 +114,14 @@ int			main(int argc, char	**argv);
 void		ft_initial_array(t_array	*array);
 bool		ft_main_initial(t_environment	*env);
 
+//			deinitial.c
+int			ft_deinitial_mlx(t_environment	*env);
+void		ft_main_deinitial(t_environment	*env);
+
 //			exit.c
 void		ft_fail(t_environment	*env, const char	*msg_err,
 				bool is_errno);
-void		ft_success(t_environment	*env, const char	*msg);
-int			ft_destroy(t_environment	*env);
+int			ft_success(t_environment	*env);
 
 //			render.c
 int			ft_action_key(int keycode, t_environment	*env);
@@ -138,9 +143,9 @@ bool		ft_get_file(t_file	*file, const char	*path);
 bool		ft_validation(t_environment	*env);
 
 //			array.c
-void		ft_push_back(t_array	*array, const void	*elem);
-void		ft_delete_all(t_array	*array);
-void		ft_push_adrs(t_array	*array, void	*elem);
+void		ft_push_copy(t_array	*array, const void	*elem);
+void		ft_deinitial_array(t_array	*array);
+void		ft_push_move(t_array	*array, void	*elem);
 
 //			game_over.c
 void		ft_game_over(t_environment	*env);

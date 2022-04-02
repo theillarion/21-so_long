@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	ft_push_back(t_array	*array, const void	*elem)
+void	ft_push_copy(t_array	*array, const void	*elem)
 {
 	void	**ptr;
 	t_ushort	i;
@@ -25,7 +25,7 @@ void	ft_push_back(t_array	*array, const void	*elem)
 	}
 }
 
-void	ft_push_adrs(t_array	*array, void	*elem)
+void	ft_push_move(t_array	*array, void	*elem)
 {
 	void	**ptr;
 	t_ushort	i;
@@ -46,17 +46,18 @@ void	ft_push_adrs(t_array	*array, void	*elem)
 	}
 }
 
-void	ft_delete_all(t_array	*array)
+void	ft_deinitial_array(t_array	*array)
 {
 	t_ushort	i;
 
 	i = 0;
 	while (i < array->count && array->ptr[i])
 	{
-		ft_smart_free(&array->ptr[i]);
+		free(array->ptr[i]);
 		++i;
 	}
 	free(array->ptr);
+	array->ptr = NULL;
 }
 
 void	ft_initial_array(t_array	*array)

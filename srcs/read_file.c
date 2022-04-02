@@ -19,12 +19,12 @@ static char	*ft_read_full_file(int fd)
 	{
 		backup = file;
 		file = ft_strjoin(file, buff);
-		ft_smart_free((void *)&backup);
+		ft_smart_free((void **)&backup);
 		count = read(fd, buff, BUFFER_SIZE);
 		if (count >= 0)
 			buff[count] = '\0';
 	}
-	ft_smart_free((void *)&buff);
+	ft_smart_free((void **)&buff);
 	return (file);
 }
 
@@ -50,6 +50,7 @@ bool	ft_get_file(t_file	*file, const char	*path)
 	if (buff == NULL || *buff == '\0')
 		return (ft_return_and_close(fd));
 	file->lines = ft_split(buff, '\n');
+	free(buff);
 	file->length = ft_strlen(file->lines[0]);
 	file->count = 0;
 	while (file->lines[file->count] != NULL)

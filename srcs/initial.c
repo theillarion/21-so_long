@@ -34,7 +34,7 @@ static void	ft_initial_window(t_window	*window)
 	window->height = 0;
 }
 
-static void ft_initual_game(t_game	*game)
+static void ft_initial_game(t_game	*game)
 {
 	if (game == NULL)
 		return ;
@@ -42,25 +42,41 @@ static void ft_initual_game(t_game	*game)
 	game->x = 0;
 	game->y = 0;
 	game->is_action = false;
+	game->is_end_game = false;
 	game->current_position = PositionUp;
 	game->next_position = PositionUp;
+}
+
+void	ft_initial_images(t_images	*images)
+{
+	if (images == NULL)
+		return ;
+	ft_initial_array(&images->character);
+	ft_initial_array(&images->other);
+	images->game_over = NULL;
+}
+
+void	ft_initial_paths(t_paths	*paths)
+{
+	if (paths == NULL)
+		return ;
+	ft_initial_array(&paths->path_to_character);
+	ft_initial_array(&paths->path_to_other);
+	paths->path_to_game_over = NULL;
 }
 
 bool	ft_main_initial(t_environment	*env)
 {
 	if (env == NULL)
 		return (false);
-	env->mlx = mlx_init();
+	env->mlx = NULL;
 	ft_initial_file(&env->file);
-	env->count_uniq_map = COUNT_PAIRS;
+	env->count_uniq_map = CountSymbols;
 	ft_initial_pair(env->map);
+	ft_initial_paths(&env->paths);
+	ft_initial_images(&env->images);
 	ft_initial_window(&env->main_win);
 	ft_initial_window(&env->game_over_win);
-	ft_initual_game(&env->game);
-	mlx_get_screen_size(env->mlx, (int *)&env->main_win.width,
-		(int *)&env->main_win.height);
-	env->main_win.height *= 0.9;
-	if (env->main_win.width == 0 || env->main_win.height == 0)
-		return (false);
+	ft_initial_game(&env->game);
 	return (true);
 }

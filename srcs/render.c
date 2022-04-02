@@ -2,26 +2,36 @@
 
 int	ft_action_key(int keycode, t_environment	*env)
 {
-	if (keycode == ESC)
-		ft_destroy(env);
-	else if (keycode == LEFT || keycode == UP || keycode == RIGHT
-		|| keycode == DOWN)
+	if (env == NULL)
+		return (EXIT_FAILURE);
+	if (env->game.is_end_game == true)
+	{
+		if (keycode == KeyEsc)
+			ft_success(env);
+		return (0);
+	}
+	else if (keycode == KeyEsc)
+		ft_success(env);
+	else if (keycode == KeyLeft || keycode == KeyUp || keycode == KeyRight
+		|| keycode == KeyDown)
 	{
 		env->game.is_action = true;
-		if (keycode == LEFT)
+		if (keycode == KeyLeft)
 			env->game.next_position = PositionLeft;
-		else if (keycode == UP)
+		else if (keycode == KeyUp)
 			env->game.next_position = PositionUp;
-		else if (keycode == RIGHT)
+		else if (keycode == KeyRight)
 			env->game.next_position = PositionRight;
 		else
 			env->game.next_position = PositionDown;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static bool	ft_check(t_environment	*env, int y, int x)
 {
+	if (env == NULL)
+		return (false);
 	x /= env->game.size_pixels;
 	y /= env->game.size_pixels;
 	if (env->file.lines[y][x] == env->map[SymbolIdle].key
@@ -45,6 +55,8 @@ static bool	ft_check(t_environment	*env, int y, int x)
 
 static bool	fd_do_step(t_environment	*env, int	*x, int	*y)
 {
+	if (env == NULL)
+		return (false);
 	if (env->game.current_position == PositionUp
 		&& *y - env->game.size_pixels >= 0
 		&& ft_check(env, *y - env->game.size_pixels, *x) == true)
@@ -68,14 +80,14 @@ static bool	fd_do_step(t_environment	*env, int	*x, int	*y)
 
 static void	ft_do_action(t_environment	*env, int x, int y, int	*i)
 {
-	if (env->game.current_position != env->game.next_position)
+	if (env != NULL && env->game.current_position != env->game.next_position)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.character.ptr[env->game.next_position], x, y);
 		env->game.current_position = env->game.next_position;
 		++*i;
 	}
-	else
+	else if (env != NULL)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.other.ptr[SymbolIdle], x, y);
@@ -86,8 +98,8 @@ static void	ft_do_action(t_environment	*env, int x, int y, int	*i)
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.character.ptr[env->game.current_position], x, y);
 	}
-	if (env->map[SymbolCollectible].value == 0
-	&& env->map[SymbolExit].value == 0)
+	if (env != NULL && env->map[SymbolCollectible].value == 0
+		&& env->map[SymbolExit].value == 0)
 	{
 		env->game.is_action = false;
 		ft_game_over(env);
@@ -101,19 +113,17 @@ int	render_next_frame(t_environment	*env)
 	int			x;
 	int			y;
 
-	if (env != NULL && env->game.is_action == true)
+	if (env == NULL || env->game.is_action == false || env->game.is_end_game)
+		return (EXIT_FAILURE);
+	x = env->game.x * env->game.size_pixels;
+	y = env->game.y * env->game.size_pixels;
+	prev_i = i;
+	ft_do_action(env, x, y, &i);
+	if (prev_i != i)
 	{
-		mlx_do_sync(env->mlx);
-		x = env->game.x * env->game.size_pixels;
-		y = env->game.y * env->game.size_pixels;
-		prev_i = i;
-		ft_do_action(env, x, y, &i);
-		if (prev_i != i)
-		{
-			ft_putnbr_fd(i, STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		}
-		env->game.is_action = false;
+		ft_putnbr_fd(i, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
-	return (0);
+	env->game.is_action = false;
+	return (EXIT_SUCCESS);
 }
