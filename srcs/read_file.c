@@ -28,6 +28,17 @@ static char	*ft_read_full_file(int fd)
 	return (file);
 }
 
+static bool	ft_check_path(const char	*path)
+{
+	size_t	i;
+
+	i = strlen(path) - 1;
+	if (path[i - 3] == '.' && path[i - 2] == 'b'
+		&& path[i - 1] == 'e' && path[i] == 'r')
+		return (true);
+	return (false);
+}
+
 static bool	ft_return_and_close(int fd)
 {
 	close(fd);
@@ -41,12 +52,12 @@ bool	ft_get_file(t_file	*file, const char	*path)
 
 	if (file == NULL || path == NULL || *path == '\0')
 		return (false);
+	if (ft_check_path(path) == false)
+		return (false);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (false);
 	buff = ft_read_full_file(fd);
-	if (ft_strnstr(path, ".ber", ft_strlen(path)) == NULL)
-		return (ft_return_and_close(fd));
 	if (buff == NULL || *buff == '\0')
 		return (ft_return_and_close(fd));
 	file->lines = ft_split(buff, '\n');

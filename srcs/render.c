@@ -1,33 +1,5 @@
 #include "so_long.h"
 
-int	ft_action_key(int keycode, t_environment	*env)
-{
-	if (env == NULL)
-		return (EXIT_FAILURE);
-	if (env->game.is_end_game == true)
-	{
-		if (keycode == KeyEsc)
-			ft_success(env);
-		return (0);
-	}
-	else if (keycode == KeyEsc)
-		ft_success(env);
-	else if (keycode == KeyLeft || keycode == KeyUp || keycode == KeyRight
-		|| keycode == KeyDown)
-	{
-		env->game.is_action = true;
-		if (keycode == KeyLeft)
-			env->game.next_position = PositionLeft;
-		else if (keycode == KeyUp)
-			env->game.next_position = PositionUp;
-		else if (keycode == KeyRight)
-			env->game.next_position = PositionRight;
-		else
-			env->game.next_position = PositionDown;
-	}
-	return (EXIT_SUCCESS);
-}
-
 static bool	ft_check(t_environment	*env, int y, int x)
 {
 	if (env == NULL)
@@ -157,10 +129,7 @@ int	render_next_frame(t_environment	*env)
 	prev_i = i;
 	ft_do_action(env, x, y, &i);
 	if (prev_i != i)
-	{
-		ft_putnbr_fd(i, STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	}
+		ft_render_status_bar(env);
 	env->game.is_action = false;
 	return (EXIT_SUCCESS);
 }

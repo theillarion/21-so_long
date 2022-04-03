@@ -4,7 +4,7 @@ static void	ft_deinital_file(t_file	*file)
 {
 	size_t	i;
 
-	if (file == NULL)
+	if (file == NULL || file->lines == NULL)
 		return ;
 	i = 0;
 	while (file->lines[i])

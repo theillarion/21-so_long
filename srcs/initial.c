@@ -25,13 +25,25 @@ static void	ft_initial_file(t_file	*file)
 	file->lines = NULL;
 }
 
-static void	ft_initial_window(t_window	*window)
+static void	ft_initial_window(t_window	*window, bool is_used_status_bar)
 {
 	if (window == NULL)
 		return ;
 	window->ptr = NULL;
+	window->start_x = 0;
+	window->start_y = 0;
 	window->width = 0;
 	window->height = 0;
+	window->common_width = 0;
+	window->common_height = 0;
+	window->is_used_status_bar = is_used_status_bar;
+	if (is_used_status_bar)
+	{
+		window->status_bar.start_x = 0;
+		window->status_bar.start_y = 0;
+		window->status_bar.width = 0;
+		window->status_bar.height = 0;
+	}
 }
 
 static void	ft_initial_game(t_game	*game)
@@ -45,6 +57,7 @@ static void	ft_initial_game(t_game	*game)
 	game->is_end_game = false;
 	game->current_position = PositionUp;
 	game->next_position = PositionUp;
+	game->start_position_score = 0;
 }
 
 bool	ft_main_initial(t_environment	*env)
@@ -57,8 +70,8 @@ bool	ft_main_initial(t_environment	*env)
 	ft_initial_pair(env->map);
 	ft_initial_paths(&env->paths);
 	ft_initial_images(&env->images);
-	ft_initial_window(&env->main_win);
-	ft_initial_window(&env->game_over_win);
+	ft_initial_window(&env->main_win, true);
+	ft_initial_window(&env->game_over_win, false);
 	ft_initial_game(&env->game);
 	return (true);
 }

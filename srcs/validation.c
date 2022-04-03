@@ -6,12 +6,12 @@ static bool	ft_check_wall(const t_environment env)
 	size_t	j;
 
 	i = 0;
-	j = 0;
 	while (env.file.lines[i])
 	{
+		j = 0;
 		while (env.file.lines[i][j])
 		{
-			if ((i == 0 || j == 0)
+			if ((i == 0 || j == 0 || i == env.file.count - 1 || j == env.file.length - 1)
 				&& env.file.lines[i][j] != env.map[SymbolWall].key)
 				return (false);
 			++j;

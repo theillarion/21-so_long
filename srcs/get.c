@@ -18,3 +18,13 @@ char	*ft_get_main_directory(t_ushort	size_pixels)
 	ft_smart_free((void *)&number);
 	return (result);
 }
+
+int ft_get_number_with_count(int number, int count)
+{
+	if (count == 0 || number > 9 || number < -9)
+		return (0);
+	if (count == 1)
+		return (number);
+	else
+			return (number * pow(10, count - 1) + ft_get_number_with_count(number, count - 1));
+}

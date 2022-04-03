@@ -1,5 +1,13 @@
 #include "so_long.h"
 
+void	*ft_check(const void	*ptr)
+{
+	if (ptr != NULL)
+		return ((void *)ptr);
+	exit(EXIT_FAILURE);
+	return (NULL);	
+}
+
 int	main(int argc, char	**argv)
 {
 	t_environment	env;
@@ -20,7 +28,7 @@ int	main(int argc, char	**argv)
 		mlx_hook(env.main_win.ptr, DestroyNotify,
 			ButtonReleaseMask, ft_success, &env);
 		mlx_loop_hook(env.mlx, render_next_frame, &env);
-		mlx_loop(env.mlx);
+		mlx_loop(ft_check(env.mlx));
 		ft_success(&env);
 	}
 	ft_putendl_fd("Error\nwrong arguments", STDOUT_FILENO);
