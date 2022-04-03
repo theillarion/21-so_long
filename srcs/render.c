@@ -53,6 +53,43 @@ static bool	ft_check(t_environment	*env, int y, int x)
 	return (false);
 }
 
+/*void	ft_sprite_character(t_environment	*env, int step, bool is_axis_x)
+{
+	int	x;
+	int y;
+	int i;
+
+	if (env == NULL)
+		return ;
+	x = env->game.x * env->game.size_pixels;
+	y = env->game.y * env->game.size_pixels;
+	if (env->game.size_pixels >= 8)
+		i = step / 8;
+	else
+		i = step / 4;
+	if (is_axis_x)
+	{
+		while (x != env->game.x * env->game.size_pixels + step)
+		{
+			mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.character.ptr[env->game.current_position], x, y);
+			mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.other.ptr[SymbolIdle], x, y);
+			x += i;
+		}
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.character.ptr[env->game.current_position], x, y);
+	}
+	else
+	{
+		while (y != env->game.y * env->game.size_pixels + step)
+		{
+			mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.character.ptr[env->game.current_position], x, y);
+			mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.other.ptr[SymbolIdle], x, y);
+			y += i;
+		}
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.character.ptr[env->game.current_position], x, y);
+	}
+}
+*/
+
 static bool	fd_do_step(t_environment	*env, int	*x, int	*y)
 {
 	if (env == NULL)

@@ -2,7 +2,7 @@
 
 void	ft_push_copy(t_array	*array, const void	*elem)
 {
-	void	**ptr;
+	void		**ptr;
 	t_ushort	i;
 
 	if (array != NULL && elem != NULL)
@@ -27,7 +27,7 @@ void	ft_push_copy(t_array	*array, const void	*elem)
 
 void	ft_push_move(t_array	*array, void	*elem)
 {
-	void	**ptr;
+	void		**ptr;
 	t_ushort	i;
 
 	if (array != NULL && elem != NULL)

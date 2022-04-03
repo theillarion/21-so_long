@@ -2,6 +2,7 @@
 # define SO_LONG_H
 
 # include <unistd.h>
+# include <stdio.h>
 # include <stdbool.h>
 # include <string.h>
 # include <errno.h>
@@ -107,11 +108,12 @@ typedef struct s_environment
 	size_t		count_uniq_map;
 }	t_environment;
 
-//		main.c
+//			main.c
 int			main(int argc, char	**argv);
 
 //			initial.c
-void		ft_initial_array(t_array	*array);
+void		ft_initial_images(t_images	*images);
+void		ft_initial_paths(t_paths	*paths);
 bool		ft_main_initial(t_environment	*env);
 
 //			deinitial.c
@@ -133,6 +135,9 @@ void		ft_smart_free(void	**memory);
 //			get.c
 char		*ft_get_main_directory(t_ushort	size_pixels);
 
+//			create.c
+bool		ft_create_mlx(t_environment	*env);
+
 //			fill.c
 bool		ft_main_fill(t_environment	*env);
 
@@ -143,14 +148,15 @@ bool		ft_get_file(t_file	*file, const char	*path);
 bool		ft_validation(t_environment	*env);
 
 //			array.c
-void		ft_push_copy(t_array	*array, const void	*elem);
+void		ft_initial_array(t_array	*array);
 void		ft_deinitial_array(t_array	*array);
+void		ft_push_copy(t_array	*array, const void	*elem);
 void		ft_push_move(t_array	*array, void	*elem);
 
 //			game_over.c
 void		ft_game_over(t_environment	*env);
 
-//		calc.c
+//			calc.c
 t_ushort	ft_calc_size_pixel(const t_environment env,
 				t_ushort	size_pixel);
 
