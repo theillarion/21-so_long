@@ -12,8 +12,7 @@
 
 # include "libft.h"
 
-# include "mlx.h"
-//# include "mlx_int.h"
+# include "../lib/minilibx-macos/mlx.h"
 
 # define COUNT_PAIRS 5
 # define BUFFER_SIZE 1024
@@ -35,13 +34,22 @@ enum e_events_mask
 	ButtonReleaseMask	= (1L<<3)
 };
 
-enum e_keys
+/*enum e_keys
 {
 	KeyEsc		= 65307,
 	KeyLeft		= 97,
 	KeyUp		= 119,
 	KeyRight	= 100,
 	KeyDown		= 115
+};*/
+
+enum e_keys
+{
+	KeyEsc		= 53,
+	KeyLeft		= 0,
+	KeyUp		= 13,
+	KeyRight	= 2,
+	KeyDown		= 1
 };
 
 enum e_position
@@ -75,6 +83,7 @@ enum e_images_score
 	Image8,
 	Image9,
 	ImageWordScore,
+	ImageIdle,
 	CountImages,
 	HeightNumberImage	= 16,
 	WidthNumberImage	= 16,
@@ -177,7 +186,8 @@ int			ft_success(t_environment	*env);
 
 //			action.c
 void		ft_render_status_bar(t_environment	*env);
-int			ft_action_key(int keycode, t_environment	*env);
+int			ft_action_key_press(int keycode, t_environment	*env);
+int			ft_action_key_release(int keycode, t_environment	*env);
 
 //			render.c
 int			render_next_frame(t_environment	*env);

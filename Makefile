@@ -12,7 +12,7 @@ LIBFT_D			=	${LIBFT_PATH}/${LIBFT_NAME_D}
 LIBMLX_NAME		=	libmlx.a
 LIBMLX_NAME_S	=	mlx
 LIBMLX_PATH		=	lib/minilibx-linux
-LIBMLX_MAC_PATH	=	lib/minilibx_opengl_20191021
+LIBMLX_MAC_PATH	=	lib/minilibx-macos
 LIBMLX			=	${LIBMLX_PATH}/${LIBMLX_NAME}
 LIBMLX_MAC		=	${LIBMLX_MAC_PATH}/${LIBMLX_NAME}
 CC 				=	gcc
@@ -36,6 +36,8 @@ all				:	${NAME}
 ${NAME}			:	$(LIBMLX) $(LIBFT) $(OBJS)
 					$(CC) $(INCLUDES) $(OBJS) -L${LIBFT_PATH} -l${LIBFT_NAME_S} -L${LIBMLX_PATH} -l${LIBMLX_NAME_S} -lXext -lX11 -lm -lz -o $(NAME)
 
+mac				:	${NAME_MAC}
+
 ${NAME_MAC}		:	$(LIBMLX_MAC) $(LIBFT) $(OBJS)
 					$(CC) $(INCLUDES) $(OBJS) -L${LIBFT_PATH} -l${LIBFT_NAME_S} -L${LIBMLX_MAC_PATH} -l${LIBMLX_NAME_S} -framework OpenGL -framework AppKit -o $(NAME_MAC)
 
@@ -43,6 +45,8 @@ debug			:	${NAME_D}
 
 ${NAME_D}		:	$(LIBMLX) $(LIBFT_D) $(OBJS_D)
 					$(CC) $(INCLUDES) $(OBJS_D) -L${LIBFT_PATH} -l${LIBFT_NAME_D_S} -L${LIBMLX_PATH} -l${LIBMLX_NAME_S} -lXext -lX11 -lm -lz -o $(NAME_D)
+
+debug_mac		:	${NAME_D_MAC}
 
 ${NAME_D_MAC}	:	$(LIBMLX_MAC) $(LIBFT_D) $(OBJS_D)
 					$(CC) $(INCLUDES) $(OBJS_D) -L${LIBFT_PATH} -l${LIBFT_NAME_D_S} -L${LIBMLX_MAC_PATH} -l${LIBMLX_NAME_S} -framework OpenGL -framework AppKit -o $(NAME_D_MAC)
@@ -62,7 +66,7 @@ ${LIBMLX_MAC}	:
 clean			:
 					$(RM) ${OBJS} $(OBJS_D)
 					${MAKE} clean -C ${LIBFT_PATH}
-					${MAKE} clean -C ${LIBMLX_PATH}
+					${MAKE} clean -C ${LIBMLX_MAC}
 
 fclean			:	clean 
 					$(RM) $(NAME) ${NAME_D}
@@ -70,4 +74,4 @@ fclean			:	clean
 
 re				:	fclean all
 
-.PHONY			:	all debug clean fclean re
+.PHONY			:	all mac debug debug_mac clean fclean re

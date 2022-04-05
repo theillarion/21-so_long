@@ -64,7 +64,7 @@ bool	fill_images_numbers(t_environment	*env, int	*x, int	*y)
 	if (env == NULL)
 		return (false);
 	i = 0;
-	while (i < CountImages - 1)
+	while (i < CountImages - 2)
 	{
 		number = ft_itoa(i);
 		path = ft_strjoin("images/numbers_16/number", number);
@@ -77,8 +77,11 @@ bool	fill_images_numbers(t_environment	*env, int	*x, int	*y)
 		if (env->images.numbers[i++] == NULL ||* x != 16 || *y != 16)
 			return (false);
 	}
-	env->images.numbers[i] = mlx_xpm_file_to_image(env->mlx, "images/word_score_16.xpm", x, y);
-	if (env->images.numbers[i] == NULL || *x != 80 || *y != 16)
+	env->images.numbers[ImageWordScore] = mlx_xpm_file_to_image(env->mlx, "images/word_score_16.xpm", x, y);
+	if (env->images.numbers[ImageWordScore] == NULL || *x != 80 || *y != 16)
+		return (false);
+	env->images.numbers[ImageIdle] = mlx_xpm_file_to_image(env->mlx, "images/idle_16.xpm", x, y);
+	if (env->images.numbers[ImageIdle] == NULL || *x != 16 || *y != 16)
 		return (false);
 	return (true);
 }
@@ -149,7 +152,7 @@ void	ft_fill_status_bar(t_environment	*env)
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.numbers[ImageWordScore], 0, y);
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-				env->images.other.ptr[SymbolIdle], WidthWordImage, y);
+				env->images.numbers[ImageIdle], WidthWordImage, y);
 	}
 	mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 		env->images.numbers[Image0], x, y);
@@ -157,7 +160,7 @@ void	ft_fill_status_bar(t_environment	*env)
 	while (x < env->main_win.common_width)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.other.ptr[SymbolIdle], x, y);
+			env->images.numbers[ImageIdle], x, y);
 		x += WidthNumberImage;
 	}
 }

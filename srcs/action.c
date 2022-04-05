@@ -51,20 +51,12 @@ void	ft_render_status_bar(t_environment	*env)
 	}
 }
 
-int	ft_action_key(int keycode, t_environment	*env)
+int	ft_action_key_press(int keycode, t_environment	*env)
 {
 	if (env == NULL)
 		return (EXIT_FAILURE);
-	if (env->game.is_end_game == true)
-	{
-		if (keycode == KeyEsc)
-			ft_success(env);
-		return (0);
-	}
-	else if (keycode == KeyEsc)
-		ft_success(env);
-	else if (keycode == KeyLeft || keycode == KeyUp || keycode == KeyRight
-		|| keycode == KeyDown)
+	else if (env->game.is_end_game == false || keycode == KeyLeft
+		|| keycode == KeyUp || keycode == KeyRight || keycode == KeyDown)
 	{
 		env->game.is_action = true;
 		if (keycode == KeyLeft)
@@ -76,5 +68,14 @@ int	ft_action_key(int keycode, t_environment	*env)
 		else
 			env->game.next_position = PositionDown;
 	}
+	return (EXIT_SUCCESS);
+}
+
+int			ft_action_key_release(int keycode, t_environment	*env)
+{
+	if (env == NULL)
+		return (EXIT_FAILURE);
+	else if (keycode == KeyEsc)
+		ft_success(env);
 	return (EXIT_SUCCESS);
 }

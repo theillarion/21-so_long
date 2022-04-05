@@ -41,7 +41,8 @@ static void	ft_deinitial_images(t_environment	*env)
 		mlx_destroy_image(env->mlx, env->images.other.ptr[i++]);
 	free(env->images.other.ptr);
 	env->images.other.ptr = NULL;
-	mlx_destroy_image(env->mlx, env->images.game_over);
+    if (env->images.game_over != NULL)
+	    mlx_destroy_image(env->mlx, env->images.game_over);
 	env->images.game_over = NULL;
 }
 

@@ -23,8 +23,10 @@ int	main(int argc, char	**argv)
 			ft_fail(&env, "Error\nwrong map", false);
 		if (ft_main_fill(&env) == false)
 			ft_fail(&env, "Error\nfill", false);
-		mlx_hook(env.main_win.ptr, KeyPress | KeyRelease,
-			KeyPressMask | KeyReleaseMask, ft_action_key, &env);
+		mlx_hook(env.main_win.ptr, KeyPress,
+			KeyPressMask, ft_action_key_press, &env);
+		mlx_hook(env.main_win.ptr, KeyRelease,
+			KeyReleaseMask, ft_action_key_release, &env);
 		mlx_hook(env.main_win.ptr, DestroyNotify,
 			ButtonReleaseMask, ft_success, &env);
 		mlx_loop_hook(env.mlx, render_next_frame, &env);
