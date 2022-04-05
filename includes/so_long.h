@@ -2,6 +2,7 @@
 # define SO_LONG_H
 
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdbool.h>
 # include <string.h>
@@ -12,13 +13,27 @@
 # include "libft.h"
 
 # include "mlx.h"
-# include "mlx_int.h"
+//# include "mlx_int.h"
 
 # define COUNT_PAIRS 5
 # define BUFFER_SIZE 1024
 # define HEIGHT_STATUS_BAR 16
 
 typedef unsigned short	t_ushort;
+
+enum e_events
+{
+	KeyPress 		= 2,
+	KeyRelease		= 3,
+	DestroyNotify	= 17
+};
+
+enum e_events_mask
+{
+	KeyPressMask		= (1L<<0),
+	KeyReleaseMask		= (1L<<1),
+	ButtonReleaseMask	= (1L<<3)
+};
 
 enum e_keys
 {

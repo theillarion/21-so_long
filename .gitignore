@@ -8,6 +8,7 @@
 *.o
 *.a
 *.so
+*DS_Store*
 # Ignore Makefile
 !Makefile
 # Ignore files/dirs

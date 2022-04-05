@@ -61,7 +61,7 @@ int	ft_deinitial_mlx(t_environment	*env)
 	}
 	if (env->mlx != NULL)
 	{
-		mlx_destroy_display(env->mlx);
+		//mlx_destroy_display(env->mlx);
 		free(env->mlx);
 		env->mlx = NULL;
 	}
