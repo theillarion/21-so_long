@@ -13,6 +13,7 @@ void	ft_fail(t_environment	*env, const char	*msg_err, bool is_errno)
 int	ft_success(t_environment	*env)
 {
 	ft_main_deinitial(env);
+	ft_putend_with_color_fd(COLOR_LGREEN, "Game over!", STDOUT_FILENO);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

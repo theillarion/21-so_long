@@ -55,7 +55,7 @@ int	ft_action_key_press(int keycode, t_environment	*env)
 {
 	if (env == NULL)
 		return (EXIT_FAILURE);
-	else if (env->game.is_end_game == false || keycode == KeyLeft
+	else if (env->game.is_end_game != false || keycode == KeyLeft
 		|| keycode == KeyUp || keycode == KeyRight || keycode == KeyDown)
 	{
 		env->game.is_action = true;

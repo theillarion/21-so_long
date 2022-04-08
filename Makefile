@@ -16,7 +16,7 @@ RM				=	rm -rf
 LIBFT_NAME		=	libft.a
 LIBFT_NAME_D	=	libft_debug.a
 LIBFT_NAME_S	=	ft
-LIBFT_NAME_D_S	=	$(LIBFT_NAME_S)_debug
+LIBFT_NAME_S_D	=	$(LIBFT_NAME_S)_debug
 LIBFT_PATH		=	lib/libft
 LIBFT			=	${LIBFT_PATH}/${LIBFT_NAME}
 LIBFT_D			=	${LIBFT_PATH}/${LIBFT_NAME_D}
@@ -25,17 +25,20 @@ LIBMLX_NAME		=	libmlx.a
 LIBMLX_NAME_S	=	mlx
 
 CC_FLAGS_LINK	=	-L${LIBFT_PATH} -l${LIBFT_NAME_S} -L${LIBMLX_PATH} -l${LIBMLX_NAME_S}
+CC_FLAGS_LINK_D	=	-L${LIBFT_PATH} -l${LIBFT_NAME_S_D} -L${LIBMLX_PATH} -l${LIBMLX_NAME_S}
 
 OS				=	${shell uname -s}
 
 ifeq (${OS},Mac)
 	LIBMLX_PATH		=	lib/minilibx-macos
+	CC_FLAGS		+=	-D CURRENT_OS_MACOS
 	CC_FLAGS_LINK	+=	-framework OpenGL -framework AppKit
+	CC_FLAGS_LINK_D	+=	-framework OpenGL -framework AppKit
 else
 	LIBMLX_PATH		=	lib/minilibx-linux
+	CC_FLAGS		+=	-D CURRENT_OS_LINUX
 	CC_FLAGS_LINK	+=	-lXext -lX11 -lm -lz
-	CC_FLAGS_LINK	+=	-D CURRENT_OS=LINUX
-
+	CC_FLAGS_LINK_D	+=	-lXext -lX11 -lm -lz
 endif
 
 LIBMLX			=	${LIBMLX_PATH}/${LIBMLX_NAME}
@@ -48,9 +51,11 @@ NEWLINE			=	\n
 
 %.o				:	%.c ${HEADER}
 					@${CC} ${CC_FLAGS} ${INCLUDES} -c $< -o $@
+					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: complete${NEWLINE}"
 
 %_debug.o		:	%.c ${HEADER}
-					${CC} ${CC_FLAGS_D} ${CC_FLAGS} ${INCLUDES} -c $< -o $@
+					@${CC} ${CC_FLAGS_D} ${CC_FLAGS} ${INCLUDES} -c $< -o $@
+					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: complete${NEWLINE}"
 
 print-%  		: ; @echo $* = $($*)
 
@@ -66,7 +71,7 @@ print_build			:
 					@printf "${COLOR_LGREEN}Build ${COLOR_LYELLOW}${NAME}${COLOR_LGREEN} for ${COLOR_LYELLOW}${OS}${NEWLINE}$(NOCOLOR)"
 
 ${NAME_D}		:	$(LIBMLX) $(LIBFT_D) $(OBJS_D)
-					$(CC) $(INCLUDES) $(OBJS_D) ${CC_FLAGS_LINK} -o $(NAME_D)
+					@$(CC) $(INCLUDES) $(OBJS_D) ${CC_FLAGS_LINK_D} -o $(NAME_D)
 					@printf "${COLOR_LCYAN}build debug${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
 					@printf "Complete ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 

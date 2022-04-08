@@ -17,3 +17,4 @@ trash/
 .vscode/
 .idea/
 *test*
+!maps/*test*

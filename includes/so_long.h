@@ -12,11 +12,46 @@
 
 # include "libft.h"
 
-# include "../lib/minilibx-macos/mlx.h"
+# ifdef CURRENT_OS_LINUX
+	# include "../lib/minilibx-linux/mlx.h"
+	enum e_keys
+	{
+		KeyEsc		= 65307,
+		KeyLeft		= 97,
+		KeyUp		= 119,
+		KeyRight	= 100,
+		KeyDown		= 115
+	};
+# else
+	# ifdef CURRENT_OS_MACOS
+		# include "../lib/minilibx-macos/mlx.h"
+		enum e_keys
+		{
+			KeyEsc		= 53,
+			KeyLeft		= 0,
+			KeyUp		= 13,
+			KeyRight	= 2,
+			KeyDown		= 1
+		};
+	# else
+		enum e_keys
+		{
+			KeyEsc		= 0,
+			KeyLeft		= 0,
+			KeyUp		= 0,
+			KeyRight	= 0,
+			KeyDown		= 0
+		};
+	# endif
+# endif
 
-# define COUNT_PAIRS 5
-# define BUFFER_SIZE 1024
-# define HEIGHT_STATUS_BAR 16
+# define COUNT_PAIRS		5
+# define BUFFER_SIZE		1024
+# define HEIGHT_STATUS_BAR	16
+
+# define COLOR_LGREEN	"\033[92m"
+# define COLOR_LRED		"\033[91m"
+# define NOCOLOR		"\033[0m"
 
 typedef unsigned short	t_ushort;
 
@@ -32,33 +67,6 @@ enum e_events_mask
 	KeyPressMask		= (1L<<0),
 	KeyReleaseMask		= (1L<<1),
 	ButtonReleaseMask	= (1L<<3)
-};
-
-/*enum e_keys
-{
-	KeyEsc		= 65307,
-	KeyLeft		= 97,
-	KeyUp		= 119,
-	KeyRight	= 100,
-	KeyDown		= 115
-};*/
-
-enum e_keys
-{
-	KeyEsc		= 53,
-	KeyLeft		= 0,
-	KeyUp		= 13,
-	KeyRight	= 2,
-	KeyDown		= 1
-};
-
-enum e_keys_linux
-{
-	LinuxKeyESC		= 65307,
-	LinuxKeyLEFT	= 65361,
-	LinuxKeyUP		= 65362,
-	LinuxKeyRIGHT	= 65363,
-	LinuxKeyDOWN	= 65364
 };
 
 enum e_position
@@ -233,5 +241,8 @@ void		ft_game_over(t_environment	*env);
 t_ushort	ft_calc_size_pixel(const t_environment env,
 				t_ushort	size_pixel);
 size_t		ft_calc_discharge(int number);
+
+//			put.c
+void		ft_putend_with_color_fd(const char	*color, const char	*message, int fd7);
 
 #endif

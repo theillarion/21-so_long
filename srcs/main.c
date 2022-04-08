@@ -1,13 +1,5 @@
 #include "so_long.h"
 
-void	*ft_check(const void	*ptr)
-{
-	if (ptr != NULL)
-		return ((void *)ptr);
-	exit(EXIT_FAILURE);
-	return (NULL);	
-}
-
 int	main(int argc, char	**argv)
 {
 	t_environment	env;
@@ -23,6 +15,7 @@ int	main(int argc, char	**argv)
 			ft_fail(&env, "Error\nwrong map", false);
 		if (ft_main_fill(&env) == false)
 			ft_fail(&env, "Error\nfill", false);
+		ft_putend_with_color_fd(COLOR_LGREEN, "Start game!", STDOUT_FILENO);
 		mlx_hook(env.main_win.ptr, KeyPress,
 			KeyPressMask, ft_action_key_press, &env);
 		mlx_hook(env.main_win.ptr, KeyRelease,
@@ -30,7 +23,7 @@ int	main(int argc, char	**argv)
 		mlx_hook(env.main_win.ptr, DestroyNotify,
 			ButtonReleaseMask, ft_success, &env);
 		mlx_loop_hook(env.mlx, render_next_frame, &env);
-		mlx_loop(ft_check(env.mlx));
+		mlx_loop(env.mlx);
 		ft_success(&env);
 	}
 	ft_putendl_fd("Error\nwrong arguments", STDOUT_FILENO);
