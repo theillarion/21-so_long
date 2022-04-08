@@ -51,11 +51,13 @@ NEWLINE			=	\n
 
 %.o				:	%.c ${HEADER}
 					@${CC} ${CC_FLAGS} ${INCLUDES} -c $< -o $@
-					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: complete${NEWLINE}"
+					@printf "${COLOR_LCYAN}build object${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
+					@printf "ready ${COLOR_LYELLOW}$@${NOCOLOR}${NEWLINE}"
 
 %_debug.o		:	%.c ${HEADER}
 					@${CC} ${CC_FLAGS_D} ${CC_FLAGS} ${INCLUDES} -c $< -o $@
-					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: complete${NEWLINE}"
+					@printf "${COLOR_LCYAN}build object${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
+					@printf "ready ${COLOR_LYELLOW}$@${NOCOLOR}${NEWLINE}"
 
 print-%  		: ; @echo $* = $($*)
 
@@ -65,7 +67,7 @@ debug			:	${NAME_D}
 ${NAME}			:	${LIBMLX} ${LIBFT} ${OBJS}
 					@${CC} ${INCLUDES} ${OBJS} ${CC_FLAGS_LINK} -o ${NAME}
 					@printf "${COLOR_LCYAN}build${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
-					@printf "Complete ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
+					@printf "ready ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 
 print_build			:	
 					@printf "${COLOR_LGREEN}Build ${COLOR_LYELLOW}${NAME}${COLOR_LGREEN} for ${COLOR_LYELLOW}${OS}${NEWLINE}$(NOCOLOR)"
@@ -73,13 +75,16 @@ print_build			:
 ${NAME_D}		:	$(LIBMLX) $(LIBFT_D) $(OBJS_D)
 					@$(CC) $(INCLUDES) $(OBJS_D) ${CC_FLAGS_LINK_D} -o $(NAME_D)
 					@printf "${COLOR_LCYAN}build debug${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
-					@printf "Complete ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
+					@printf "ready ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 
 ${LIBFT}		:	
 					@$(MAKE) -s -C ${LIBFT_PATH}
-
+					@printf "${COLOR_LCYAN}build ${LIBFT_NAME}${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
+					@printf "ready ${COLOR_LYELLOW}${LIBFT_NAME}${NOCOLOR}${NEWLINE}"
 ${LIBFT_D}		:	
 					@$(MAKE) -s debug -C ${LIBFT_PATH}
+					@printf "${COLOR_LCYAN}build ${LIBFT_NAME_D}${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
+					@printf "ready ${COLOR_LYELLOW}${LIBFT_NAME_D}${NOCOLOR}${NEWLINE}"
 
 ${LIBMLX}		:	
 					@$(MAKE) -s -C ${LIBMLX_PATH}
@@ -89,16 +94,16 @@ clean			:
 					@${MAKE} -s clean -C ${LIBFT_PATH}
 					@${MAKE} -s clean -C ${LIBMLX_PATH}
 					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
-					@printf "Complete ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
+					@printf "ready ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 
 fclean			:	clean 
 					@$(RM) $(NAME) ${NAME_D}
 					@${MAKE} -s fclean -C ${LIBFT_PATH}
 					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
-					@printf "Complete ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
+					@printf "ready ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 
 re				:	fclean all
 					@printf "${COLOR_LCYAN}$@${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
-					@printf "Complete ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
+					@printf "ready ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 
 .PHONY			:	all debug clean fclean re
