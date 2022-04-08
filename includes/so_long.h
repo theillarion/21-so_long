@@ -52,6 +52,15 @@ enum e_keys
 	KeyDown		= 1
 };
 
+enum e_keys_linux
+{
+	LinuxKeyESC		= 65307,
+	LinuxKeyLEFT	= 65361,
+	LinuxKeyUP		= 65362,
+	LinuxKeyRIGHT	= 65363,
+	LinuxKeyDOWN	= 65364
+};
+
 enum e_position
 {
 	PositionLeft,
