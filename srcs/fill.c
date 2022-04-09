@@ -16,9 +16,37 @@ static void ft_fill_paths_other(t_array	*array, const char	*dir)
 	ft_push_move(array, ft_strjoin(dir, "exit/exit.xpm"));
 }
 
+static void	*ft_get_name(const char	*filename, const char	*ext, int number)
+{
+	char	*result;
+	char	*buff;
+
+	buff = ft_itoa(number);
+	result = ft_strjoin(filename, buff);
+	ft_smart_free((void **)&buff);
+	buff = result;
+	result = ft_strjoin(result, ext);
+	ft_smart_free((void **)&buff);
+	return (result);
+}
+
 static void ft_fill_paths_scores(t_array	*array)
 {
-	
+	t_ushort	i;
+	char		*filename;
+
+	i = 0;
+	filename = NULL;
+	while (i <= 9)
+	{
+		filename = ft_get_name("images/numbers_16/number", ".xpm", (int)i);
+		ft_push_move(array, (void *)filename);
+		filename = NULL;
+		++i;
+	}
+	ft_push_copy(array, "images/word_score_16.xpm");
+	ft_push_copy(array, "images/idle_16.xpm");
+	ft_push_copy(array, "images/game_over_600_x_400.xpm");
 }
 
 bool	ft_fill_paths(t_paths	*paths, t_ushort	size_pixels)
@@ -30,7 +58,7 @@ bool	ft_fill_paths(t_paths	*paths, t_ushort	size_pixels)
 	main_dir = ft_get_main_directory(size_pixels);
 	ft_fill_paths_character(&paths->path_to_character, main_dir);
 	ft_fill_paths_other(&paths->path_to_other, main_dir);
-	paths->path_to_game_over = ft_strdup("images/game_over_600_x_400.xpm");
+	ft_fill_paths_scores(&paths->score);
 	if (main_dir != NULL)
 		ft_smart_free((void *)&main_dir);
 	return (true);
@@ -67,25 +95,26 @@ bool	ft_fill_images(t_environment	*env, int *x, int *y)
 }
 */
 
-bool	ft_fill_images(const t_array	*src, t_array	*dest)
+bool	ft_fill_images(void	*mlx, const t_array	*src, t_array	*dest)
 {
     t_ushort	i;
 	int			x;
 	int			y;
 
-    if (env == NULL || env->mlx == NULL)
+    if (mlx == NULL || src == NULL || dest == NULL)
         return (false);
     i = 0;
     while (i < src->count)
     {
-        ft_push_move(dest, mlx_xpm_file_to_image(env->mlx,
+        ft_push_move(dest, mlx_xpm_file_to_image(mlx,
 												 src->ptr[i], &x, &y));
         if (dest->ptr == NULL || dest->ptr[i] == NULL || x == 0 || y == 0)
             return (false);
 		++i;
     }
+	return (true);
 }
-
+/*
 bool	fill_images_numbers(t_environment	*env, int	*x, int	*y)
 {
 	t_ushort	i;
@@ -116,7 +145,7 @@ bool	fill_images_numbers(t_environment	*env, int	*x, int	*y)
 		return (false);
 	return (true);
 }
-
+*/
 static bool	ft_handler_symbols(t_environment	*env, const char symbol,
 		const t_ushort x, const t_ushort y)
 {
@@ -181,17 +210,17 @@ void	ft_fill_status_bar(t_environment	*env)
 	if (x != 0)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.numbers[ImageWordScore], 0, y);
+			env->images.score.ptr[ImageWordScore], 0, y);
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-				env->images.numbers[ImageIdle], WidthWordImage, y);
+				env->images.score.ptr[ImageIdle], WidthWordImage, y);
 	}
 	mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-		env->images.numbers[Image0], x, y);
+		env->images.score.ptr[Image0], x, y);
 	x += WidthNumberImage;
 	while (x < env->main_win.common_width)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.numbers[ImageIdle], x, y);
+			env->images.score.ptr[ImageIdle], x, y);
 		x += WidthNumberImage;
 	}
 }
@@ -211,9 +240,6 @@ void	ft_set_size_window(t_environment	*env)
 
 bool	ft_main_fill(t_environment	*env)
 {
-	int	x;
-	int	y;
-
 	if (env == NULL)
 		return (false);
 	if (ft_create_mlx(env) == false)
@@ -223,7 +249,9 @@ bool	ft_main_fill(t_environment	*env)
 		return (false);
 	ft_set_size_window(env);
 	if (ft_fill_paths(&env->paths, env->game.size_pixels) == false
-		|| !ft_fill_images(env, &x, &y) || !fill_images_numbers(env, &x, &y))
+		|| !ft_fill_images(env->mlx, &env->paths.path_to_character, &env->images.character)
+		|| !ft_fill_images(env->mlx, &env->paths.path_to_other, &env->images.other)
+		|| !ft_fill_images(env->mlx, &env->paths.score, &env->images.score))
 		return (false);
 	env->main_win.ptr = mlx_new_window(env->mlx, env->main_win.common_width,
 			env->main_win.common_height, "So_long");

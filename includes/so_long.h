@@ -101,6 +101,7 @@ enum e_images_score
 	Image9,
 	ImageWordScore,
 	ImageIdle,
+	ImageGameOver,
 	CountImages,
 	HeightNumberImage	= 16,
 	WidthNumberImage	= 16,
