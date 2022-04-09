@@ -20,5 +20,6 @@ void	ft_initial_paths(t_paths	*paths)
 		return ;
 	ft_initial_array(&paths->path_to_character);
 	ft_initial_array(&paths->path_to_other);
+	ft_initial_array(&paths->score);
 	paths->path_to_game_over = NULL;
 }

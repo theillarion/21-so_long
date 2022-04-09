@@ -1,5 +1,26 @@
 #include "so_long.h"
 
+static void ft_fill_paths_character(t_array	*array, const char	*dir)
+{
+	ft_push_move(array, ft_strjoin(dir,"character/character_left.xpm"));
+	ft_push_move(array, ft_strjoin(dir,"character/character_up.xpm"));
+	ft_push_move(array, ft_strjoin(dir,"character/character_right.xpm"));
+	ft_push_move(array, ft_strjoin(dir,"character/character_down.xpm"));
+}
+
+static void ft_fill_paths_other(t_array	*array, const char	*dir)
+{
+	ft_push_move(array, ft_strjoin(dir, "wall/wall.xpm"));
+	ft_push_move(array, ft_strjoin(dir, "idle/idle.xpm"));
+	ft_push_move(array,ft_strjoin(dir, "collectible/collectible.xpm"));
+	ft_push_move(array, ft_strjoin(dir, "exit/exit.xpm"));
+}
+
+static void ft_fill_paths_scores(t_array	*array)
+{
+	
+}
+
 bool	ft_fill_paths(t_paths	*paths, t_ushort	size_pixels)
 {
 	char	*main_dir;
@@ -7,25 +28,15 @@ bool	ft_fill_paths(t_paths	*paths, t_ushort	size_pixels)
 	if (paths == NULL || size_pixels == 0)
 		return (false);
 	main_dir = ft_get_main_directory(size_pixels);
-	ft_push_move(&paths->path_to_other, ft_strjoin(main_dir, "idle/idle.xpm"));
-	ft_push_move(&paths->path_to_other, ft_strjoin(main_dir, "wall/wall.xpm"));
-	ft_push_move(&paths->path_to_other,
-		(void *)ft_strjoin(main_dir, "collectible/collectible.xpm"));
-	ft_push_move(&paths->path_to_other, ft_strjoin(main_dir, "exit/exit.xpm"));
-	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
-			"character/character_left.xpm"));
-	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
-			"character/character_up.xpm"));
-	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
-			"character/character_right.xpm"));
-	ft_push_move(&paths->path_to_character, ft_strjoin(main_dir,
-			"character/character_down.xpm"));
+	ft_fill_paths_character(&paths->path_to_character, main_dir);
+	ft_fill_paths_other(&paths->path_to_other, main_dir);
 	paths->path_to_game_over = ft_strdup("images/game_over_600_x_400.xpm");
 	if (main_dir != NULL)
 		ft_smart_free((void *)&main_dir);
 	return (true);
 }
 
+/*
 bool	ft_fill_images(t_environment	*env, int *x, int *y)
 {
 	t_ushort	i;
@@ -53,6 +64,26 @@ bool	ft_fill_images(t_environment	*env, int *x, int *y)
 	env->images.game_over = mlx_xpm_file_to_image(env->mlx,
 			env->paths.path_to_game_over, x, y);
 	return (true);
+}
+*/
+
+bool	ft_fill_images(const t_array	*src, t_array	*dest)
+{
+    t_ushort	i;
+	int			x;
+	int			y;
+
+    if (env == NULL || env->mlx == NULL)
+        return (false);
+    i = 0;
+    while (i < src->count)
+    {
+        ft_push_move(dest, mlx_xpm_file_to_image(env->mlx,
+												 src->ptr[i], &x, &y));
+        if (dest->ptr == NULL || dest->ptr[i] == NULL || x == 0 || y == 0)
+            return (false);
+		++i;
+    }
 }
 
 bool	fill_images_numbers(t_environment	*env, int	*x, int	*y)

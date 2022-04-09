@@ -130,6 +130,8 @@ typedef struct s_images
 {
 	t_array	character;
 	t_array	other;
+	//t_array	game_over;
+	t_array score;
 	void	*game_over;
 	void	*numbers[CountImages];
 }	t_images;
@@ -138,6 +140,7 @@ typedef struct s_paths
 {
 	t_array	path_to_character;
 	t_array	path_to_other;
+	t_array score;
 	void	*path_to_game_over;
 }	t_paths;
 

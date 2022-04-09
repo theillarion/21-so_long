@@ -29,7 +29,7 @@ CC_FLAGS_LINK_D	=	-L${LIBFT_PATH} -l${LIBFT_NAME_S_D} -L${LIBMLX_PATH} -l${LIBML
 
 OS				=	${shell uname -s}
 
-ifeq (${OS},Mac)
+ifeq (${OS},Darwin)
 	LIBMLX_PATH		=	lib/minilibx-macos
 	CC_FLAGS		+=	-D CURRENT_OS_MACOS
 	CC_FLAGS_LINK	+=	-framework OpenGL -framework AppKit
