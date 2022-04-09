@@ -1,19 +1,5 @@
 #include "so_long.h"
 
-/*int	ft_close_game_over_window(t_environment	*env)
-{
-	if (env == NULL)
-		return (-1);
-	if (env->mlx != NULL && env->game_over_win.ptr != NULL)
-	{
-		mlx_destroy_image(env->mlx, env->images.game_over);
-		mlx_clear_window(env->mlx, env->game_over_win.ptr);
-		mlx_destroy_window(env->mlx, env->game_over_win.ptr);
-		env->game_over_win.ptr = NULL;
-	}
-	return (0);
-}
-*/
 void	ft_game_over(t_environment	*env)
 {
 	if (env == NULL)

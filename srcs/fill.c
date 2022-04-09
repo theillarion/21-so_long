@@ -10,8 +10,8 @@ static void ft_fill_paths_character(t_array	*array, const char	*dir)
 
 static void ft_fill_paths_other(t_array	*array, const char	*dir)
 {
-	ft_push_move(array, ft_strjoin(dir, "wall/wall.xpm"));
 	ft_push_move(array, ft_strjoin(dir, "idle/idle.xpm"));
+	ft_push_move(array, ft_strjoin(dir, "wall/wall.xpm"));
 	ft_push_move(array,ft_strjoin(dir, "collectible/collectible.xpm"));
 	ft_push_move(array, ft_strjoin(dir, "exit/exit.xpm"));
 }

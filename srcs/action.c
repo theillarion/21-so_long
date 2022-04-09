@@ -3,7 +3,7 @@
 void	ft_output_number(t_environment	*env, int number, int	width, int axisY)
 {
 	if (number <= 9)
-		mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.numbers[number], width, axisY);
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.score.ptr[number], width, axisY);
 	else
 	{
 		ft_output_number(env, number / 10, width - WidthNumberImage, axisY);

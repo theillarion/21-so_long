@@ -50,6 +50,8 @@ void	ft_deinitial_array(t_array	*array)
 {
 	t_ushort	i;
 
+	if (array == NULL || array->ptr == NULL)
+		return ;
 	i = 0;
 	while (i < array->count && array->ptr[i])
 	{

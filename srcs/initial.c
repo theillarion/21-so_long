@@ -68,8 +68,12 @@ bool	ft_main_initial(t_environment	*env)
 	ft_initial_file(&env->file);
 	env->count_uniq_map = CountSymbols;
 	ft_initial_pair(env->map);
-	ft_initial_paths(&env->paths);
-	ft_initial_images(&env->images);
+	ft_initial_array(&env->paths.path_to_character);
+	ft_initial_array(&env->paths.path_to_other);
+	ft_initial_array(&env->paths.score);
+	ft_initial_array(&env->images.character);
+	ft_initial_array(&env->images.other);
+	ft_initial_array(&env->images.score);
 	ft_initial_window(&env->main_win, true);
 	ft_initial_window(&env->game_over_win, false);
 	ft_initial_game(&env->game);

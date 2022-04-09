@@ -22,7 +22,7 @@ static void	ft_deinital_paths(t_paths	*paths)
 		return ;
 	ft_deinitial_array(&paths->path_to_character);
 	ft_deinitial_array(&paths->path_to_other);
-	ft_smart_free(&paths->path_to_game_over);
+	ft_deinitial_array(&paths->score);
 }
 
 static void	ft_deinitial_images(t_environment	*env)
@@ -41,9 +41,11 @@ static void	ft_deinitial_images(t_environment	*env)
 		mlx_destroy_image(env->mlx, env->images.other.ptr[i++]);
 	free(env->images.other.ptr);
 	env->images.other.ptr = NULL;
-    if (env->images.game_over != NULL)
-	    mlx_destroy_image(env->mlx, env->images.game_over);
-	env->images.game_over = NULL;
+	i = 0;
+	while (i < env->images.score.count)
+		mlx_destroy_image(env->mlx, env->images.score.ptr[i++]);
+	free(env->images.score.ptr);
+	env->images.score.ptr = NULL;
 }
 
 int	ft_deinitial_mlx(t_environment	*env)
