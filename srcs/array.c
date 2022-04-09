@@ -46,17 +46,16 @@ void	ft_push_move(t_array	*array, void	*elem)
 	}
 }
 
-void	ft_deinitial_array(t_array	*array)
+void ft_deinitial_array(void	*mlx, t_array	*array, int	(*ft_clean)(void *, void *))
 {
-	t_ushort	i;
-
 	if (array == NULL || array->ptr == NULL)
 		return ;
-	i = 0;
-	while (i < array->count && array->ptr[i])
+	while (array->count && array->ptr[array->count - 1])
 	{
-		free(array->ptr[i]);
-		++i;
+		if (mlx == NULL || ft_clean == NULL)
+			free(array->ptr[array->count - 1]);
+		else ft_clean(mlx, array->ptr[array->count - 1]);
+		--array->count;
 	}
 	free(array->ptr);
 	array->ptr = NULL;

@@ -12,11 +12,13 @@ bool	ft_create_mlx(t_environment	*env)
 	env->mlx = mlx_init();
 	if (env->mlx == NULL)
 		return (false);
-	mlx_get_screen_size(env->mlx, &width, &height);
-	if (width== 0 || height == 0)
-		return (false);
-	env->main_win.width = width;
-	env->main_win.height = height * 0.9;
+	//mlx_get_screen_size(env->mlx, &width, &height);
+	//env->main_win.width = 2500;
+	//env->main_win.height = 1400;
+	//if (width== 0 || height == 0)
+	//	return (false);
+	env->main_win.width = 2500;
+	env->main_win.height = 1400 * 0.9;
 	env->main_win.height -= HeightWordImage;
 	return (true);
 }

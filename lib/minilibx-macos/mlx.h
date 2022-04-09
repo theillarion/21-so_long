@@ -97,7 +97,6 @@ unsigned int	mlx_get_color_value(void *mlx_ptr, int color);
 int	mlx_mouse_hook (void *win_ptr, int (*funct_ptr)(), void *param);
 int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
 int	mlx_expose_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-void mlx_get_screen_size(void *mlx_ptr, int *width, int *height);
 
 int	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
 int	mlx_loop (void *mlx_ptr);

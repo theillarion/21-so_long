@@ -61,13 +61,13 @@ bool	ft_get_file(t_file	*file, const char	*path)
 	if (buff == NULL || *buff == '\0')
 		return (ft_return_and_close(fd));
 	file->lines = ft_split(buff, '\n');
-	free(buff);
+	ft_smart_free((void **)&buff);
 	file->length = ft_strlen(file->lines[0]);
 	file->count = 0;
 	while (file->lines[file->count] != NULL)
 		file->count++;
 	close(fd);
 	if (fd < 0)
-		return (ft_return_and_close(fd));
+		return (false);
 	return (true);
 }

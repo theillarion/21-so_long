@@ -220,6 +220,9 @@ bool		ft_create_mlx(t_environment	*env);
 //			fill.c
 bool		ft_main_fill(t_environment	*env);
 
+//			fill_paths.c
+bool		ft_fill_paths(t_paths	*paths, t_ushort	size_pixels);
+
 //			read_file.c
 bool		ft_get_file(t_file	*file, const char	*path);
 
@@ -228,7 +231,7 @@ bool		ft_validation(t_environment	*env);
 
 //			array.c
 void		ft_initial_array(t_array	*array);
-void		ft_deinitial_array(t_array	*array);
+void 		ft_deinitial_array(void	*mlx, t_array	*array, int (*ft_clean)(void *, void *));
 void		ft_push_copy(t_array	*array, const void	*elem);
 void		ft_push_move(t_array	*array, void	*elem);
 

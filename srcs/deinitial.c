@@ -2,50 +2,34 @@
 
 static void	ft_deinital_file(t_file	*file)
 {
-	size_t	i;
-
 	if (file == NULL || file->lines == NULL)
 		return ;
-	i = 0;
-	while (file->lines[i])
+	while (file->count && file->lines[file->count - 1])
 	{
-		free(file->lines[i]);
-		++i;
+		free(file->lines[file->count - 1]);
+		--file->count;
 	}
 	free(file->lines);
 	file->lines = NULL;
+	file->length = 0;
 }
 
 static void	ft_deinital_paths(t_paths	*paths)
 {
 	if (paths == NULL)
 		return ;
-	ft_deinitial_array(&paths->path_to_character);
-	ft_deinitial_array(&paths->path_to_other);
-	ft_deinitial_array(&paths->score);
+	ft_deinitial_array(NULL, &paths->path_to_character, NULL);
+	ft_deinitial_array(NULL, &paths->path_to_other, NULL);
+	ft_deinitial_array(NULL, &paths->score, NULL);
 }
 
 static void	ft_deinitial_images(t_environment	*env)
 {
-	t_ushort	i;
-
 	if (env == NULL || env->mlx == NULL)
 		return ;
-	i = 0;
-	while (i < env->images.character.count)
-		mlx_destroy_image(env->mlx, env->images.character.ptr[i++]);
-	free(env->images.character.ptr);
-	env->images.character.ptr = NULL;
-	i = 0;
-	while (i < env->images.other.count)
-		mlx_destroy_image(env->mlx, env->images.other.ptr[i++]);
-	free(env->images.other.ptr);
-	env->images.other.ptr = NULL;
-	i = 0;
-	while (i < env->images.score.count)
-		mlx_destroy_image(env->mlx, env->images.score.ptr[i++]);
-	free(env->images.score.ptr);
-	env->images.score.ptr = NULL;
+	ft_deinitial_array(env->mlx, &env->images.character, mlx_destroy_image);
+	ft_deinitial_array(env->mlx, &env->images.other, mlx_destroy_image);
+	ft_deinitial_array(env->mlx, &env->images.score, mlx_destroy_image);
 }
 
 int	ft_deinitial_mlx(t_environment	*env)

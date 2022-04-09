@@ -33,7 +33,7 @@ ifeq (${OS},Darwin)
 	LIBMLX_PATH		=	lib/minilibx-macos
 	CC_FLAGS		+=	-D CURRENT_OS_MACOS
 	CC_FLAGS_LINK	+=	-framework OpenGL -framework AppKit
-	CC_FLAGS_LINK_D	+=	-framework OpenGL -framework AppKit -fsanitize=address
+	CC_FLAGS_LINK_D	+=	-framework OpenGL -framework AppKit
 else
 	LIBMLX_PATH		=	lib/minilibx-linux
 	CC_FLAGS		+=	-D CURRENT_OS_LINUX
