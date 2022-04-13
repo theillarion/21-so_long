@@ -78,36 +78,36 @@ enum e_position
 	PositionDown,
 };
 
-enum e_images
+enum e_images_main
 {
-	SymbolIdle,
-	SymbolWall,
-	SymbolCollectible,
-	SymbolExit,
-	SymbolStartPosition,
-	CountSymbols
+	ImageIdle,
+	ImageWall,
+	ImageCollectible,
+	ImageExit,
+	ImageStartPosition,
+	CountImagesMain
 };
 
 enum e_images_score
 {
-	Image0,
-	Image1,
-	Image2,
-	Image3,
-	Image4,
-	Image5,
-	Image6,
-	Image7,
-	Image8,
-	Image9,
-	ImageWordScore,
-	ImageIdle,
-	ImageGameOver,
-	CountImages,
-	HeightNumberImage	= 16,
-	WidthNumberImage	= 16,
-	HeightWordImage		= 16,
-	WidthWordImage		= 80
+	ImageScore0,
+	ImageScore1,
+	ImageScore2,
+	ImageScore3,
+	ImageScore4,
+	ImageScore5,
+	ImageScore6,
+	ImageScore7,
+	ImageScore8,
+	ImageScore9,
+	ImageScoreWord,
+	ImageScoreIdle,
+	ImageScoreGameOver,
+	CountImagesScore,
+	HeightImageNumber	= 16,
+	WidthImageNumber	= 16,
+	HeightImageWord		= 16,
+	WidthImageWord		= 80
 };
 
 typedef struct s_file
@@ -116,6 +116,7 @@ typedef struct s_file
 	size_t	length;
 	size_t	count;
 }			t_file;
+
 typedef struct s_pair
 {
 	char			key;
@@ -128,19 +129,12 @@ typedef struct s_array
 	t_ushort	count;
 }	t_array;
 
-typedef struct s_images
+typedef struct s_objects
 {
 	t_array	character;
 	t_array	other;
 	t_array	score;
-}	t_images;
-
-typedef struct s_paths
-{
-	t_array	path_to_character;
-	t_array	path_to_other;
-	t_array	score;
-}	t_paths;
+}	t_objects;
 
 typedef struct s_game
 {
@@ -149,7 +143,6 @@ typedef struct s_game
 	t_ushort	y;
 	t_ushort	current_position;
 	t_ushort	next_position;
-	t_ushort	start_position_score;
 	bool		is_action;
 	bool		is_end_game;
 }		t_game;
@@ -172,6 +165,7 @@ typedef struct s_window
 		t_ushort	height;
 	}	status_bar;
 }		t_window;
+
 typedef struct s_environment
 {
 	void		*mlx;
@@ -179,10 +173,9 @@ typedef struct s_environment
 	t_window	game_over_win;
 	t_game		game;
 	t_file		file;
-	t_images	images;
-	t_paths		paths;
+	t_objects	images;
+	t_objects	paths;
 	t_pair		map[COUNT_PAIRS];
-	size_t		count_uniq_map;
 }	t_environment;
 
 //			main.c
@@ -223,7 +216,7 @@ bool		ft_create_mlx(t_environment	*env);
 bool		ft_main_fill(t_environment	*env);
 
 //			fill_paths.c
-bool		ft_fill_paths(t_paths	*paths, t_ushort	size_pixels);
+bool		ft_fill_paths(t_objects	*paths, t_ushort	size_pixels);
 
 //			fill_window.c
 bool		ft_fill_window(t_environment	*env);

@@ -46,15 +46,15 @@ static void	ft_fill_paths_scores(t_array	*array)
 	ft_push_move(array, ft_strdup("images/game_over_600_x_400.xpm"));
 }
 
-bool	ft_fill_paths(t_paths	*paths, t_ushort	size_pixels)
+bool	ft_fill_paths(t_objects	*paths, t_ushort	size_pixels)
 {
 	char	*main_dir;
 
 	if (paths == NULL || size_pixels == 0)
 		return (false);
 	main_dir = ft_get_main_directory(size_pixels);
-	ft_fill_paths_character(&paths->path_to_character, main_dir);
-	ft_fill_paths_other(&paths->path_to_other, main_dir);
+	ft_fill_paths_character(&paths->character, main_dir);
+	ft_fill_paths_other(&paths->other, main_dir);
 	ft_fill_paths_scores(&paths->score);
 	if (main_dir != NULL)
 		ft_smart_free((void **)&main_dir);

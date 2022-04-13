@@ -17,7 +17,7 @@ static bool	ft_handler_symbols(t_environment	*env, const char symbol,
 		}
 		++i;
 	}
-	if (symbol == env->map[SymbolStartPosition].key)
+	if (symbol == env->map[ImageStartPosition].key)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.character.ptr[PositionUp],
@@ -64,18 +64,18 @@ void	ft_fill_status_bar(t_environment	*env)
 	if (x != 0)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.score.ptr[ImageWordScore], 0, y);
+			env->images.score.ptr[ImageScoreWord], 0, y);
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.score.ptr[ImageIdle], WidthWordImage, y);
+			env->images.score.ptr[ImageScoreIdle], WidthImageWord, y);
 	}
 	mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-		env->images.score.ptr[Image0], x, y);
-	x += WidthNumberImage;
+		env->images.score.ptr[ImageScore0], x, y);
+	x += WidthImageNumber;
 	while (x < env->main_win.common_width)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.score.ptr[ImageIdle], x, y);
-		x += WidthNumberImage;
+			env->images.score.ptr[ImageScoreIdle], x, y);
+		x += WidthImageNumber;
 	}
 }
 
@@ -86,7 +86,7 @@ void	ft_set_size_window(t_environment	*env)
 	env->main_win.status_bar.start_x = 0;
 	env->main_win.status_bar.start_y = env->main_win.height;
 	env->main_win.status_bar.width = env->main_win.width;
-	env->main_win.status_bar.height = HeightWordImage;
+	env->main_win.status_bar.height = HeightImageWord;
 	env->main_win.common_width = env->main_win.width;
 	env->main_win.common_height = env->main_win.height
 		+ env->main_win.status_bar.height;

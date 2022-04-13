@@ -6,11 +6,11 @@ static void	ft_initial_pair(t_pair	*map)
 
 	if (map == NULL)
 		return ;
-	map[SymbolIdle].key = '0';
-	map[SymbolWall].key = '1';
-	map[SymbolCollectible].key = 'C';
-	map[SymbolExit].key = 'E';
-	map[SymbolStartPosition].key = 'P';
+	map[ImageIdle].key = '0';
+	map[ImageWall].key = '1';
+	map[ImageCollectible].key = 'C';
+	map[ImageExit].key = 'E';
+	map[ImageStartPosition].key = 'P';
 	i = 0;
 	while (i != COUNT_PAIRS)
 		map[i++].value = 0;
@@ -57,7 +57,6 @@ static void	ft_initial_game(t_game	*game)
 	game->is_end_game = false;
 	game->current_position = PositionUp;
 	game->next_position = PositionUp;
-	game->start_position_score = 0;
 }
 
 bool	ft_main_initial(t_environment	*env)
@@ -66,10 +65,9 @@ bool	ft_main_initial(t_environment	*env)
 		return (false);
 	env->mlx = NULL;
 	ft_initial_file(&env->file);
-	env->count_uniq_map = CountSymbols;
 	ft_initial_pair(env->map);
-	ft_initial_array(&env->paths.path_to_character);
-	ft_initial_array(&env->paths.path_to_other);
+	ft_initial_array(&env->paths.character);
+	ft_initial_array(&env->paths.other);
 	ft_initial_array(&env->paths.score);
 	ft_initial_array(&env->images.character);
 	ft_initial_array(&env->images.other);

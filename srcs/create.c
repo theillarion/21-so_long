@@ -17,6 +17,6 @@ bool	ft_create_mlx(t_environment	*env)
 		return (false);
 	env->main_win.width = width;
 	env->main_win.height = height * 0.9;
-	env->main_win.height -= HeightWordImage;
+	env->main_win.height -= HeightImageWord;
 	return (true);
 }

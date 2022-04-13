@@ -6,20 +6,20 @@ static bool	ft_check(t_environment	*env, int y, int x)
 		return (false);
 	x /= env->game.size_pixels;
 	y /= env->game.size_pixels;
-	if (env->file.lines[y][x] == env->map[SymbolIdle].key
-		|| env->file.lines[y][x] == env->map[SymbolStartPosition].key)
+	if (env->file.lines[y][x] == env->map[ImageIdle].key
+		|| env->file.lines[y][x] == env->map[ImageStartPosition].key)
 		return (true);
-	else if (env->file.lines[y][x] == env->map[SymbolCollectible].key)
+	else if (env->file.lines[y][x] == env->map[ImageCollectible].key)
 	{
-		env->file.lines[y][x] = env->map[SymbolIdle].key;
-		--env->map[SymbolCollectible].value;
+		env->file.lines[y][x] = env->map[ImageIdle].key;
+		--env->map[ImageCollectible].value;
 		return (true);
 	}
-	else if (env->map[SymbolCollectible].value == 0
-		&& env->file.lines[y][x] == env->map[SymbolExit].key)
+	else if (env->map[ImageCollectible].value == 0
+		&& env->file.lines[y][x] == env->map[ImageExit].key)
 	{
-		env->file.lines[y][x] = env->map[SymbolIdle].key;
-		--env->map[SymbolExit].value;
+		env->file.lines[y][x] = env->map[ImageIdle].key;
+		--env->map[ImageExit].value;
 		return (true);
 	}
 	return (false);
@@ -62,7 +62,7 @@ static void	ft_do_action(t_environment	*env, int x, int y, int	*i)
 	else if (env != NULL)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.other.ptr[SymbolIdle], x, y);
+			env->images.other.ptr[ImageIdle], x, y);
 		if (fd_do_step(env, &x, &y) == true)
 			++*i;
 		env->game.x = x / env->game.size_pixels;
@@ -70,8 +70,8 @@ static void	ft_do_action(t_environment	*env, int x, int y, int	*i)
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.character.ptr[env->game.current_position], x, y);
 	}
-	if (env != NULL && env->map[SymbolCollectible].value == 0
-		&& env->map[SymbolExit].value == 0)
+	if (env != NULL && env->map[ImageCollectible].value == 0
+		&& env->map[ImageExit].value == 0)
 	{
 		env->game.is_action = false;
 		ft_game_over(env);

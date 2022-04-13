@@ -31,9 +31,9 @@ bool	ft_main_fill(t_environment	*env)
 		return (false);
 	ft_set_size_window(env);
 	if (ft_fill_paths(&env->paths, env->game.size_pixels) == false
-		|| !ft_fill_images(env->mlx, &env->paths.path_to_character,
+		|| !ft_fill_images(env->mlx, &env->paths.character,
 			&env->images.character)
-		|| !ft_fill_images(env->mlx, &env->paths.path_to_other,
+		|| !ft_fill_images(env->mlx, &env->paths.other,
 			&env->images.other)
 		|| !ft_fill_images(env->mlx, &env->paths.score, &env->images.score))
 		return (false);
@@ -41,8 +41,8 @@ bool	ft_main_fill(t_environment	*env)
 			env->main_win.common_height, "So_long");
 	if (ft_fill_window(env) == false)
 		return (false);
-	if (WidthWordImage + 3 * WidthNumberImage < env->main_win.common_width)
-		env->main_win.status_bar.start_x = WidthWordImage + WidthNumberImage;
+	if (WidthImageWord + 3 * WidthImageNumber < env->main_win.common_width)
+		env->main_win.status_bar.start_x = WidthImageWord + WidthImageNumber;
 	ft_fill_status_bar(env);
 	return (true);
 }

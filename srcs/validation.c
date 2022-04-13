@@ -13,7 +13,7 @@ static bool	ft_check_wall(const t_environment env)
 		{
 			if ((i == 0 || j == 0 || i == env.file.count - 1
 					|| j == env.file.length - 1)
-				&& env.file.lines[i][j] != env.map[SymbolWall].key)
+				&& env.file.lines[i][j] != env.map[ImageWall].key)
 				return (false);
 			++j;
 		}
@@ -68,9 +68,9 @@ static bool	ft_calc_count_symbols(t_environment	*env)
 
 static bool	ft_check_count_symbols(const t_environment env)
 {
-	if (env.map[SymbolStartPosition].value != 1
-		|| env.map[SymbolExit].value < 1
-		|| env.map[SymbolCollectible].value < 1)
+	if (env.map[ImageStartPosition].value != 1
+		|| env.map[ImageExit].value < 1
+		|| env.map[ImageCollectible].value < 1)
 		return (false);
 	return (true);
 }

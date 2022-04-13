@@ -14,24 +14,6 @@ static void	ft_deinital_file(t_file	*file)
 	file->length = 0;
 }
 
-static void	ft_deinital_paths(t_paths	*paths)
-{
-	if (paths == NULL)
-		return ;
-	ft_deinitial_array(NULL, &paths->path_to_character, NULL);
-	ft_deinitial_array(NULL, &paths->path_to_other, NULL);
-	ft_deinitial_array(NULL, &paths->score, NULL);
-}
-
-static void	ft_deinitial_images(t_environment	*env)
-{
-	if (env == NULL || env->mlx == NULL)
-		return ;
-	ft_deinitial_array(env->mlx, &env->images.character, mlx_destroy_image);
-	ft_deinitial_array(env->mlx, &env->images.other, mlx_destroy_image);
-	ft_deinitial_array(env->mlx, &env->images.score, mlx_destroy_image);
-}
-
 int	ft_deinitial_mlx(t_environment	*env)
 {
 	if (env == NULL)
@@ -54,7 +36,11 @@ void	ft_main_deinitial(t_environment	*env)
 	if (env == NULL)
 		return ;
 	ft_deinital_file(&env->file);
-	ft_deinital_paths(&env->paths);
-	ft_deinitial_images(env);
+	ft_deinitial_array(NULL, &env->paths.character, NULL);
+	ft_deinitial_array(NULL, &env->paths.other, NULL);
+	ft_deinitial_array(NULL, &env->paths.score, NULL);
+	ft_deinitial_array(env->mlx, &env->images.character, mlx_destroy_image);
+	ft_deinitial_array(env->mlx, &env->images.other, mlx_destroy_image);
+	ft_deinitial_array(env->mlx, &env->images.score, mlx_destroy_image);
 	ft_deinitial_mlx(env);
 }
