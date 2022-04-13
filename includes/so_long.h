@@ -22,6 +22,7 @@
 		KeyRight	= 100,
 		KeyDown		= 115
 	};
+	# define MLX_DESTROY(VALUE) mlx_destroy_display(VALUE)
 # else
 	# ifdef CURRENT_OS_MACOS
 		# include "../lib/minilibx-macos/mlx.h"
@@ -33,6 +34,7 @@
 			KeyRight	= 2,
 			KeyDown		= 1
 		};
+	 # define MLX_DESTROY(VALUE) ft_mlx_no_destroy(VALUE)
 	# else
 		enum e_keys
 		{
@@ -42,6 +44,7 @@
 			KeyRight	= 0,
 			KeyDown		= 0
 		};
+		# define MLX_DESTROY(VALUE) VALUE
 	# endif
 # endif
 
@@ -198,6 +201,8 @@ void		ft_main_deinitial(t_environment	*env);
 void		ft_fail(t_environment	*env, const char	*msg_err,
 				bool is_errno);
 int			ft_success(t_environment	*env);
+void		ft_exit_fail(const char	*msg_err);
+void		ft_mlx_no_destroy(void	*ptr);
 
 //			action.c
 void		ft_render_status_bar(t_environment	*env);
@@ -223,6 +228,11 @@ bool		ft_main_fill(t_environment	*env);
 //			fill_paths.c
 bool		ft_fill_paths(t_paths	*paths, t_ushort	size_pixels);
 
+//			fill_window.c
+bool		ft_fill_window(t_environment	*env);
+void		ft_fill_status_bar(t_environment	*env);
+void		ft_set_size_window(t_environment	*env);
+
 //			read_file.c
 bool		ft_get_file(t_file	*file, const char	*path);
 
@@ -241,7 +251,7 @@ void		ft_game_over(t_environment	*env);
 //			calc.c
 t_ushort	ft_calc_size_pixel(const t_environment env,
 				t_ushort	size_pixel);
-size_t		ft_calc_discharge(int number);
+size_t		ft_calc_discharge(long long number);
 
 //			put.c
 void		ft_putend_with_color_fd(const char	*color, const char	*message, int fd7);
