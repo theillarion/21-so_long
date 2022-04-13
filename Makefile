@@ -74,7 +74,9 @@ $(NAME)			:	$(LIBMLX) $(LIBFT) $(HEADER_MLX) $(OBJS)
 					@printf "ready $(COLOR_LYELLOW)$(NAME)$(NOCOLOR) for $(COLOR_LYELLOW)$(OS)$(NOCOLOR)$(NEWLINE)"
 
 $(HEADER_MLX)	:
-					cp $(LIBMLX_PATH)/$(LIBMLX_NAME_S).h $(HEADER_MLX)
+					@cp $(LIBMLX_PATH)/$(LIBMLX_NAME_S).h $(HEADER_MLX)
+					@printf "$(COLOR_LCYAN)cp $(LIBMLX_PATH)/$(LIBMLX_NAME_S).h$(NOCOLOR) [$(COLOR_LGREEN)info$(NOCOLOR)]: "
+					@printf "ready $(COLOR_LYELLOW)$(HEADER_MLX)$(NOCOLOR)$(NEWLINE)"
 
 $(NAME_D)		:	$(LIBMLX) $(LIBFT_D) $(HEADER_MLX) $(OBJS_D)
 					@$(CC) $(INCLUDES) $(OBJS_D) $(CC_FLAGS_LINK_D) -o $(NAME_D)
@@ -105,7 +107,7 @@ clean			:
 					@printf "ready $(COLOR_LYELLOW)$(NAME)$(NOCOLOR) for $(COLOR_LYELLOW)$(OS)$(NOCOLOR)$(NEWLINE)"
 
 fclean			:	clean 
-					@$(RM) $(NAME) $(NAME_D)
+					@$(RM) $(NAME) $(NAME_D) $(HEADER_MLX)
 					@$(MAKE) -s fclean -C $(LIBFT_PATH)
 					@printf "$(COLOR_LCYAN)$@$(NOCOLOR) [$(COLOR_LGREEN)info$(NOCOLOR)]: "
 					@printf "ready $(COLOR_LYELLOW)$(NAME)$(NOCOLOR) for $(COLOR_LYELLOW)$(OS)$(NOCOLOR)$(NEWLINE)"
