@@ -4,18 +4,25 @@
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/gl3.h>
 #import <AppKit/NSOpenGLView.h>
+#import <AppKit/NSScreen.h>
 
 #include "mlx_int.h"
 #include "mlx_new_window.h"
 
 #include "font.c"
 
-
 void	do_loop_hook2(CFRunLoopTimerRef observer, void * info)
 {
   ((mlx_ptr_t *)info)->loop_hook(((mlx_ptr_t *)info)->loop_hook_data);
 }
 
+void    mlx_get_screen_size(void *mlx_ptr, int *width, int *height)
+{
+	(void *)mlx_ptr;
+	NSRect disp = [[NSScreen mainScreen] frame];
+	*height = (int)disp.size.height;
+	*width = (int)disp.size.width;
+}
 
 void do_loop_flush(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void * info)
 {
