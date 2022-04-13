@@ -18,3 +18,14 @@ int	ft_success(t_environment	*env)
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
+
+void	ft_exit_fail(const char	*msg_err)
+{
+	ft_putendl_fd(msg_err, STDOUT_FILENO);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_mlx_no_destroy(void	*ptr)
+{
+	(void)ptr;
+}

@@ -1,9 +1,11 @@
 #include "so_long.h"
 
-void	ft_output_number(t_environment	*env, int number, int	width, int axisY)
+void	ft_output_number(t_environment	*env, size_t number, int width, int
+axisY)
 {
 	if (number <= 9)
-		mlx_put_image_to_window(env->mlx, env->main_win.ptr, env->images.score.ptr[number], width, axisY);
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
+			env->images.score.ptr[number], width, axisY);
 	else
 	{
 		ft_output_number(env, number / 10, width - WidthNumberImage, axisY);
@@ -11,24 +13,26 @@ void	ft_output_number(t_environment	*env, int number, int	width, int axisY)
 	}
 }
 
-bool	ft_check_overflow(t_environment	*env, int number, int start_pos, int end_pos, int axisY)
+static bool	ft_check_overflow(t_environment	*env, size_t number)
 {
 	int	interval;
-	int count_cell;
+	int	count_cell;
 	int	count_discharge;
 	int	width;
 
-	interval = end_pos - start_pos;
+	interval = env->main_win.width - env->main_win.status_bar.start_x;
 	count_cell = (interval / WidthNumberImage);
-	count_discharge = (int)ft_calc_discharge(number);
-	width = start_pos + (count_discharge - 1) * WidthNumberImage;
+	count_discharge = (int)ft_calc_discharge((long long)number);
+	width = env->main_win.status_bar.start_x
+		+ (count_discharge - 1) * WidthNumberImage;
 	if (count_discharge > count_cell)
 	{
-		ft_output_number(env, ft_get_number_with_count(9, count_cell), width, axisY);
+		ft_output_number(env, ft_get_number_with_count(9, count_cell), width,
+			env->main_win.status_bar.start_y);
 		return (false);
 	}	
 	else
-		ft_output_number(env, number, width, axisY);
+		ft_output_number(env, number, width, env->main_win.status_bar.start_y);
 	return (true);
 }
 
@@ -43,8 +47,7 @@ void	ft_render_status_bar(t_environment	*env)
 			i = 1;
 		if (i == SIZE_MAX)
 			is_overflow = true;
-		else if (ft_check_overflow(env, i, env->main_win.status_bar.start_x,
-			env->main_win.width, env->main_win.status_bar.start_y) == false)
+		else if (!ft_check_overflow(env, i))
 				is_overflow = true;
 		else
 			++i;
@@ -71,7 +74,7 @@ int	ft_action_key_press(int keycode, t_environment	*env)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_action_key_release(int keycode, t_environment	*env)
+int	ft_action_key_release(int keycode, t_environment	*env)
 {
 	if (env == NULL)
 		return (EXIT_FAILURE);

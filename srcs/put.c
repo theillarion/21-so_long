@@ -1,6 +1,7 @@
 #include "so_long.h"
 
-void	ft_putend_with_color_fd(const char	*color, const char	*message, int fd)
+void	ft_putend_with_color_fd(const char	*color, const char	*message,
+	int fd)
 {
 	if (fd <= 0 || color == NULL || message == NULL)
 		return ;

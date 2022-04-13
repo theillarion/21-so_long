@@ -20,11 +20,10 @@ t_ushort	ft_calc_size_pixel(const t_environment env,
 	return (size_pixel);
 }
 
-size_t	ft_calc_discharge(int number)
+size_t	ft_calc_discharge(long long number)
 {
 	if (number <= 9 && number >= -9)
 		return (1);
 	else
 		return (1 + ft_calc_discharge(number / 10));
 }
-
