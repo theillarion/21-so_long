@@ -46,8 +46,6 @@ int	ft_deinitial_mlx(t_environment	*env)
 		mlx_destroy_window(env->mlx, env->main_win.ptr);
 		env->main_win.ptr = NULL;
 	}
-	if (env->mlx != NULL)
-		MLX_DESTROY(env->mlx);
 	return (EXIT_SUCCESS);
 }
 

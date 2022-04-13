@@ -10,57 +10,55 @@
 # include <stdint.h>
 # include <math.h>
 
+# include "mlx.h"
 # include "libft.h"
 
 # ifdef CURRENT_OS_LINUX
-	# include "../lib/minilibx-linux/mlx.h"
-	enum e_keys
-	{
-		KeyEsc		= 65307,
-		KeyLeft		= 97,
-		KeyUp		= 119,
-		KeyRight	= 100,
-		KeyDown		= 115
-	};
-	# define MLX_DESTROY(VALUE) mlx_destroy_display(VALUE)
+
+enum	e_keys
+{
+	KeyEsc		= 65307,
+	KeyLeft		= 97,
+	KeyUp		= 119,
+	KeyRight	= 100,
+	KeyDown		= 115
+};
+
 # else
-	# ifdef CURRENT_OS_MACOS
-		# include "../lib/minilibx-macos/mlx.h"
-		enum e_keys
-		{
-			KeyEsc		= 53,
-			KeyLeft		= 0,
-			KeyUp		= 13,
-			KeyRight	= 2,
-			KeyDown		= 1
-		};
-	 # define MLX_DESTROY(VALUE) ft_mlx_no_destroy(VALUE)
-	# else
-		enum e_keys
-		{
-			KeyEsc		= 0,
-			KeyLeft		= 0,
-			KeyUp		= 0,
-			KeyRight	= 0,
-			KeyDown		= 0
-		};
-		# define MLX_DESTROY(VALUE) VALUE
-	# endif
+#  ifdef CURRENT_OS_MACOS
+
+enum	e_keys
+{
+	KeyEsc		= 53,
+	KeyLeft		= 0,
+	KeyUp		= 13,
+	KeyRight	= 2,
+	KeyDown		= 1
+};
+#  else
+
+enum	e_keys
+{
+	KeyEsc		= 0,
+	KeyLeft		= 0,
+	KeyUp		= 0,
+	KeyRight	= 0,
+	KeyDown		= 0
+};
+#  endif
 # endif
 
 # define COUNT_PAIRS		5
 # define BUFFER_SIZE		1024
-# define HEIGHT_STATUS_BAR	16
 
 # define COLOR_LGREEN	"\033[92m"
-# define COLOR_LRED		"\033[91m"
 # define NOCOLOR		"\033[0m"
 
 typedef unsigned short	t_ushort;
 
 enum e_events
 {
-	KeyPress 		= 2,
+	KeyPress		= 2,
 	KeyRelease		= 3,
 	DestroyNotify	= 17
 };
@@ -80,7 +78,7 @@ enum e_position
 	PositionDown,
 };
 
-enum e_symbols_map
+enum e_images
 {
 	SymbolIdle,
 	SymbolWall,
@@ -134,14 +132,14 @@ typedef struct s_images
 {
 	t_array	character;
 	t_array	other;
-	t_array score;
+	t_array	score;
 }	t_images;
 
 typedef struct s_paths
 {
 	t_array	path_to_character;
 	t_array	path_to_other;
-	t_array score;
+	t_array	score;
 }	t_paths;
 
 typedef struct s_game
@@ -183,7 +181,7 @@ typedef struct s_environment
 	t_file		file;
 	t_images	images;
 	t_paths		paths;
-	t_pair		map[CountSymbols];
+	t_pair		map[COUNT_PAIRS];
 	size_t		count_uniq_map;
 }	t_environment;
 
@@ -202,7 +200,6 @@ void		ft_fail(t_environment	*env, const char	*msg_err,
 				bool is_errno);
 int			ft_success(t_environment	*env);
 void		ft_exit_fail(const char	*msg_err);
-void		ft_mlx_no_destroy(void	*ptr);
 
 //			action.c
 void		ft_render_status_bar(t_environment	*env);
@@ -217,7 +214,7 @@ void		ft_smart_free(void	**memory);
 
 //			get.c
 char		*ft_get_main_directory(t_ushort	size_pixels);
-int 		ft_get_number_with_count(int number, int count);
+int			ft_get_number_with_count(int number, int count);
 
 //			create.c
 bool		ft_create_mlx(t_environment	*env);
@@ -241,7 +238,8 @@ bool		ft_validation(t_environment	*env);
 
 //			array.c
 void		ft_initial_array(t_array	*array);
-void 		ft_deinitial_array(void	*mlx, t_array	*array, int (*ft_clean)(void *, void *));
+void		ft_deinitial_array(void	*mlx, t_array	*array,
+				int (*ft_clean)(void *, void *));
 void		ft_push_copy(t_array	*array, const void	*elem);
 void		ft_push_move(t_array	*array, void	*elem);
 
@@ -254,6 +252,7 @@ t_ushort	ft_calc_size_pixel(const t_environment env,
 size_t		ft_calc_discharge(long long number);
 
 //			put.c
-void		ft_putend_with_color_fd(const char	*color, const char	*message, int fd7);
+void		ft_putend_with_color_fd(const char	*color, const char	*message,
+				int fd7);
 
 #endif

@@ -2,6 +2,7 @@ NAME			=	so_long
 NAME_D			=	${NAME}_debug
 
 HEADER			=	includes/so_long.h
+HEADER_MLX		=	includes/mlx.h
 SRCS			=	${wildcard srcs/*.c}
 OBJS			=	${SRCS:%.c=%.o}
 OBJS_D			=	${SRCS:%.c=%_debug.o}
@@ -64,13 +65,13 @@ print-%  		: ; @echo $* = $($*)
 all				:	${NAME}
 debug			:	${NAME_D}
 
-${NAME}			:	${LIBMLX} ${LIBFT} ${OBJS}
+${NAME}			:	${LIBMLX} ${LIBFT} $(HEADER_MLX) ${OBJS}
 					@${CC} ${INCLUDES} ${OBJS} ${CC_FLAGS_LINK} -o ${NAME}
 					@printf "${COLOR_LCYAN}build${NOCOLOR} [${COLOR_LGREEN}info${NOCOLOR}]: "
 					@printf "ready ${COLOR_LYELLOW}${NAME}${NOCOLOR} for ${COLOR_LYELLOW}${OS}${NOCOLOR}${NEWLINE}"
 
-print_build			:	
-					@printf "${COLOR_LGREEN}Build ${COLOR_LYELLOW}${NAME}${COLOR_LGREEN} for ${COLOR_LYELLOW}${OS}${NEWLINE}$(NOCOLOR)"
+$(HEADER_MLX)	:
+					cp $(LIBMLX_PATH)/$(LIBMLX_NAME_S).h $(HEADER_MLX)
 
 ${NAME_D}		:	$(LIBMLX) $(LIBFT_D) $(OBJS_D)
 					@$(CC) $(INCLUDES) $(OBJS_D) ${CC_FLAGS_LINK_D} -o $(NAME_D)
