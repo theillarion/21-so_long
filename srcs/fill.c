@@ -26,15 +26,15 @@ bool	ft_main_fill(t_environment	*env)
 		return (false);
 	if (ft_create_mlx(env) == false)
 		return (false);
-	env->game.size_pixels = ft_calc_size_pixel(*env, 128);
+	env->game.size_pixels = ft_calc_size_pixel(*env, 8, 128);
 	if (env->game.size_pixels == 0)
 		return (false);
 	ft_set_size_window(env);
 	if (ft_fill_paths(&env->paths, env->game.size_pixels) == false
 		|| !ft_fill_images(env->mlx, &env->paths.character,
 			&env->images.character)
-		|| !ft_fill_images(env->mlx, &env->paths.other,
-			&env->images.other)
+		|| !ft_fill_images(env->mlx, &env->paths.enemy, &env->images.enemy)
+		|| !ft_fill_images(env->mlx, &env->paths.other, &env->images.other)
 		|| !ft_fill_images(env->mlx, &env->paths.score, &env->images.score))
 		return (false);
 	env->main_win.ptr = mlx_new_window(env->mlx, env->main_win.common_width,

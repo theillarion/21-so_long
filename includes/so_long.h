@@ -85,6 +85,7 @@ enum e_images_main
 	ImageCollectible,
 	ImageExit,
 	ImageStartPosition,
+	ImageEnemy,
 	CountImagesMain
 };
 
@@ -132,6 +133,7 @@ typedef struct s_array
 typedef struct s_objects
 {
 	t_array	character;
+	t_array	enemy;
 	t_array	other;
 	t_array	score;
 }	t_objects;
@@ -240,8 +242,8 @@ void		ft_push_move(t_array	*array, void	*elem);
 void		ft_game_over(t_environment	*env);
 
 //			calc.c
-t_ushort	ft_calc_size_pixel(const t_environment env,
-				t_ushort	size_pixel);
+t_ushort	ft_calc_size_pixel(const t_environment env, t_ushort min_size_pixel,
+				t_ushort	max_size_pixel);
 size_t		ft_calc_discharge(long long number);
 
 //			put.c

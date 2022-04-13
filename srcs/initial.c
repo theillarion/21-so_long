@@ -67,9 +67,11 @@ bool	ft_main_initial(t_environment	*env)
 	ft_initial_file(&env->file);
 	ft_initial_pair(env->map);
 	ft_initial_array(&env->paths.character);
+	ft_initial_array(&env->paths.enemy);
 	ft_initial_array(&env->paths.other);
 	ft_initial_array(&env->paths.score);
 	ft_initial_array(&env->images.character);
+	ft_initial_array(&env->images.enemy);
 	ft_initial_array(&env->images.other);
 	ft_initial_array(&env->images.score);
 	ft_initial_window(&env->main_win, true);
