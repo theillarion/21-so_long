@@ -1,9 +1,17 @@
 NAME			=	so_long
 NAME_D			=	$(NAME)_debug
 
-HEADER			=	includes/so_long.h
+HEADER			=	${addprefix includes/,\
+					so_long.h images.h\
+					}
 HEADER_MLX		=	includes/mlx.h
-SRCS			=	${wildcard srcs/*.c}
+SRCS			=	${addprefix srcs/,\
+					array.c		check_step.c	deinitial.c	event.c	fill.c	fill_window.c	game_over.c\
+					initial.c	map.c			put.c		render_game.c	validation.c	calc.c\
+					create.c	destroy.c		exit.c		fill_paths.c	free.c			get.c\
+					main.c		math.c			read_file.c	render_status_bar.c\
+					}
+
 OBJS			=	${SRCS:%.c=%.o}
 OBJS_D			=	${SRCS:%.c=%_debug.o}
 
