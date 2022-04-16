@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	ft_player_destroyed(t_environment	*env)
+static void	ft_player_destroyed(t_environment	*env)
 {
 	env->game.is_end_game = true;
 	env->game.is_destroy = true;

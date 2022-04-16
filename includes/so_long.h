@@ -206,54 +206,42 @@ typedef struct s_environment
 	t_pair		map[COUNT_PAIRS];
 }	t_environment;
 
-//				main.c
-int				main(int argc, char	**argv);
+//				array.c
+void			ft_initial_array(t_array	*array);
+void			ft_deinitial_array(void	*mlx, t_array	*array,
+					int (*ft_clean)(void *, void *));
+void			ft_push_copy(t_array	*array, const void	*elem);
+void			ft_push_move(t_array	*array, void	*elem);
 
-//				math.c
-int				ft_pow(int basis, unsigned int exp);
-unsigned int	ft_abs(int number);
+//				calc.c
+t_ushort		ft_calc_size_pixel(const t_environment env,
+					t_ushort min_size_pixel, t_ushort	max_size_pixel);
+size_t			ft_calc_discharge(long long number);
 
-//				render_statuc_bar.c
-void			ft_render_status_bar(t_environment	*env);
+//				check_step.c
+bool			ft_check_step(t_environment	*env, int	*x, int	*y,
+	t_ushort	current_position);
 
-//				initial.c
-bool			ft_main_initial(t_environment	*env);
+//				create.c
+bool			ft_create_mlx(t_environment	*env);
+
+//				deinitial.c
+int				ft_deinitial_mlx(t_environment	*env);
+void			ft_main_deinitial(t_environment	*env);
 
 //				destroy.c
 void			ft_destroy_display(void	**ptr);
 void			ft_destroy_hero(t_environment	*env);
 
-//				deinitial.c
-int				ft_deinitial_mlx(t_environment	*env);
-void			ft_main_deinitial(t_environment	*env);
+//				event.c
+int				ft_event_key_press(int keycode, t_environment	*env);
+int				ft_event_key_release(int keycode, t_environment	*env);
 
 //				exit.c
 void			ft_fail(t_environment	*env, const char	*msg_err,
 					bool is_errno);
 int				ft_success(t_environment	*env);
 void			ft_exit_fail(const char	*msg_err);
-
-//				action.c
-void			ft_render_status_bar(t_environment	*env);
-int				ft_event_key_press(int keycode, t_environment	*env);
-int				ft_event_key_release(int keycode, t_environment	*env);
-
-//				check_step.c
-bool			ft_check_step(t_environment	*env, int	*x, int	*y,
-					t_ushort	current_position);
-
-//				render.c
-int				ft_render_next_frame(t_environment	*env);
-
-//				free.c
-void			ft_smart_free(void	**memory);
-
-//				get.c
-char			*ft_get_main_directory(t_ushort	size_pixels);
-int				ft_get_number_with_count(int number, int count);
-
-//				create.c
-bool			ft_create_mlx(t_environment	*env);
 
 //				fill.c
 bool			ft_main_fill(t_environment	*env);
@@ -266,26 +254,28 @@ bool			ft_fill_window(t_environment	*env);
 void			ft_fill_status_bar(t_environment	*env);
 void			ft_set_size_window(t_environment	*env);
 
-//				read_file.c
-bool			ft_get_file(t_file	*file, const char	*path);
-
-//				validation.c
-bool			ft_validation(t_environment	*env);
-
-//				array.c
-void			ft_initial_array(t_array	*array);
-void			ft_deinitial_array(void	*mlx, t_array	*array,
-					int (*ft_clean)(void *, void *));
-void			ft_push_copy(t_array	*array, const void	*elem);
-void			ft_push_move(t_array	*array, void	*elem);
+//				free.c
+void			ft_smart_free(void	**memory);
 
 //				game_over.c
 void			ft_game_over(t_environment	*env);
 
-//				calc.c
-t_ushort		ft_calc_size_pixel(const t_environment env,
-					t_ushort min_size_pixel, t_ushort	max_size_pixel);
-size_t			ft_calc_discharge(long long number);
+//				get.c
+char			*ft_get_main_directory(t_ushort	size_pixels);
+int				ft_get_number_with_count(int number, int count);
+
+//				initial.c
+bool			ft_main_initial(t_environment	*env);
+
+//				main.c
+int				main(int argc, char	**argv);
+
+//				map.c
+t_ushort		ft_symbol_to_int(const t_pair	*map, const char symbol);
+
+//				math.c
+int				ft_pow(int basis, unsigned int exp);
+unsigned int	ft_abs(int number);
 
 //				put.c
 void			ft_putnbr_in_window(t_environment	*env, size_t number,
@@ -293,7 +283,16 @@ void			ft_putnbr_in_window(t_environment	*env, size_t number,
 void			ft_putend_with_color_fd(const char	*color,
 					const char	*message, int fd7);
 
-//				map.c
-t_ushort		ft_symbol_to_int(const t_pair	*map, const char symbol);
+//				read_file.c
+bool			ft_get_file(t_file	*file, const char	*path);
+
+//				render_game.c
+int				ft_render_next_frame(t_environment	*env);
+
+//				render_status_bar.c
+void			ft_render_status_bar(t_environment	*env);
+
+//				validation.c
+bool			ft_validation(t_environment	*env);
 
 #endif

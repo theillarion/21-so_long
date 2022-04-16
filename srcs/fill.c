@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-bool	ft_fill_images(void	*mlx, const t_array	*src, t_array	*dest)
+static bool	ft_fill_images(void	*mlx, const t_array	*src, t_array	*dest)
 {
 	t_ushort	i;
 	int			x;
@@ -20,7 +20,7 @@ bool	ft_fill_images(void	*mlx, const t_array	*src, t_array	*dest)
 	return (true);
 }
 
-void	ft_fill_enemy(t_environment	*env)
+static void	ft_fill_enemy(t_environment	*env)
 {
 	t_ushort	i;
 

@@ -1,5 +1,4 @@
 #include "so_long.h"
-#include <math.h>
 
 static void	ft_do_step(t_environment	*env, t_player	*hero,
 				void	**images, int	*i)
@@ -54,7 +53,7 @@ static void	ft_do_actions(t_environment	*env, t_player	*hero,
 	}
 }
 
-void	ft_do_action_enemy(t_environment	*env)
+static void	ft_do_action_enemy(t_environment	*env)
 {
 	int			count_do;
 	t_ushort	i;

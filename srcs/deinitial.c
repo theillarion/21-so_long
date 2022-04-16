@@ -14,6 +14,22 @@ static void	ft_deinital_file(t_file	*file)
 	file->length = 0;
 }
 
+static void	ft_deinitial_game(t_game	*game, t_ushort count_enemy)
+{
+	ushort	i;
+
+	if (game == NULL || game->enemy == NULL)
+		return ;
+	i = 0;
+	while (i < count_enemy)
+	{
+		free(game->enemy[i]);
+		++i;
+	}
+	free(game->enemy);
+	game->enemy = NULL;
+}
+
 int	ft_deinitial_mlx(t_environment	*env)
 {
 	if (env == NULL)
@@ -31,22 +47,6 @@ int	ft_deinitial_mlx(t_environment	*env)
 	if (env->mlx != NULL)
 		ft_destroy_display(&env->mlx);
 	return (EXIT_SUCCESS);
-}
-
-static void	ft_deinitial_game(t_game	*game, t_ushort count_enemy)
-{
-	ushort	i;
-
-	if (game == NULL || game->enemy == NULL)
-		return ;
-	i = 0;
-	while (i < count_enemy)
-	{
-		free(game->enemy[i]);
-		++i;
-	}
-	free(game->enemy);
-	game->enemy = NULL;
 }
 
 void	ft_main_deinitial(t_environment	*env)
