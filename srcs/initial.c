@@ -10,6 +10,7 @@ static void	ft_initial_pair(t_pair	*map)
 	map[ImageWall].key = '1';
 	map[ImageCollectible].key = 'C';
 	map[ImageExit].key = 'E';
+	map[ImageEnemy].key = 'F';
 	map[ImageStartPosition].key = 'P';
 	i = 0;
 	while (i != COUNT_PAIRS)
@@ -51,12 +52,16 @@ static void	ft_initial_game(t_game	*game)
 	if (game == NULL)
 		return ;
 	game->size_pixels = 0;
-	game->x = 0;
-	game->y = 0;
+	game->hero_number = 0;
+	game->is_hero = true;
 	game->is_action = false;
 	game->is_end_game = false;
-	game->current_position = PositionUp;
-	game->next_position = PositionUp;
+	game->is_destroy = false;
+	game->hero.x = 0;
+	game->hero.y = 0;
+	game->hero.current_position = PositionUp;
+	game->hero.next_position = PositionUp;
+	game->enemy = NULL;
 }
 
 bool	ft_main_initial(t_environment	*env)
@@ -70,10 +75,12 @@ bool	ft_main_initial(t_environment	*env)
 	ft_initial_array(&env->paths.enemy);
 	ft_initial_array(&env->paths.other);
 	ft_initial_array(&env->paths.score);
+	ft_initial_array(&env->paths.destroy);
 	ft_initial_array(&env->images.character);
 	ft_initial_array(&env->images.enemy);
 	ft_initial_array(&env->images.other);
 	ft_initial_array(&env->images.score);
+	ft_initial_array(&env->images.destroy);
 	ft_initial_window(&env->main_win, true);
 	ft_initial_window(&env->game_over_win, false);
 	ft_initial_game(&env->game);

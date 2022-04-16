@@ -9,6 +9,8 @@
 # include <errno.h>
 # include <stdint.h>
 # include <math.h>
+# include <time.h>
+# include <stdlib.h>
 
 # include "mlx.h"
 # include "libft.h"
@@ -48,7 +50,7 @@ enum	e_keys
 #  endif
 # endif
 
-# define COUNT_PAIRS		5
+# define COUNT_PAIRS		6
 # define BUFFER_SIZE		1024
 
 # define COLOR_LGREEN	"\033[92m"
@@ -84,9 +86,23 @@ enum e_images_main
 	ImageWall,
 	ImageCollectible,
 	ImageExit,
-	ImageStartPosition,
 	ImageEnemy,
+	ImageStartPosition,
 	CountImagesMain
+};
+
+enum e_images_destroy
+{
+	ImageDestroy0,
+	ImageDestroy1,
+	ImageDestroy2,
+	ImageDestroy3,
+	ImageDestroy4,
+	ImageDestroy5,
+	ImageDestroy6,
+	ImageDestroy7,
+	ImageDestroy8,
+	CountImagesDestroy
 };
 
 enum e_images_score
@@ -136,17 +152,27 @@ typedef struct s_objects
 	t_array	enemy;
 	t_array	other;
 	t_array	score;
+	t_array	destroy;
 }	t_objects;
+
+typedef struct s_player
+{
+	int			x;
+	int			y;
+	t_ushort	current_position;
+	t_ushort	next_position;
+}		t_player;
 
 typedef struct s_game
 {
 	t_ushort	size_pixels;
-	t_ushort	x;
-	t_ushort	y;
-	t_ushort	current_position;
-	t_ushort	next_position;
+	t_player 	hero;
+	t_player	**enemy;
+	u_short		hero_number;
+	bool		is_hero;
 	bool		is_action;
 	bool		is_end_game;
+	bool		is_destroy;
 }		t_game;
 
 typedef struct s_window

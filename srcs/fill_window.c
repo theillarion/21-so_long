@@ -1,33 +1,65 @@
 #include "so_long.h"
 
-static bool	ft_handler_symbols(t_environment	*env, const char symbol,
+static t_ushort ft_symbol_to_int(const t_pair	*map, const char symbol)
+{
+	if (map[ImageIdle].key == symbol)
+		return (ImageIdle);
+	else if (map[ImageWall].key == symbol)
+		return (ImageWall);
+	else if (map[ImageCollectible].key == symbol)
+		return (ImageCollectible);
+	else if (map[ImageExit].key == symbol)
+		return (ImageExit);
+	else if (map[ImageEnemy].key == symbol)
+		return (ImageEnemy);
+	else if (map[ImageStartPosition].key == symbol)
+		return (ImageStartPosition);
+	return (0);
+}
+
+static bool ft_handler_map_2(t_environment	*env, const char symbol,
 	const t_ushort x, const t_ushort y)
 {
-	t_ushort	i;
+	static u_short i;
 
-	i = 0;
-	while (i < COUNT_PAIRS - 1)
+	if (env->game.enemy != NULL && symbol == env->map[ImageEnemy].key)
 	{
-		if (symbol == env->map[i].key)
-		{
-			mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-				env->images.other.ptr[i], x * env->game.size_pixels,
-				y * env->game.size_pixels);
-			return (true);
-		}
-		++i;
-	}
-	if (symbol == env->map[ImageStartPosition].key)
-	{
-		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			env->images.character.ptr[PositionUp],
+		if (i >= env->map[ImageEnemy].value)
+			return (false);
+		mlx_put_image_to_window(env->mlx,
+			env->main_win.ptr,env->images.enemy.ptr[PositionUp],
 			x * env->game.size_pixels, y * env->game.size_pixels);
-		env->game.x = x;
-		env->game.y = y;
+		env->game.enemy[i]->x = x;
+		env->game.enemy[i]->y = y;
+		++i;
 		return (true);
 	}
-	else
-		return (false);
+	return (false);
+}
+
+static bool	ft_handler_map(t_environment	*env, const char symbol,
+	const t_ushort x, const t_ushort y)
+{
+	if (symbol == env->map[ImageIdle].key
+		|| symbol == env->map[ImageWall].key
+		|| symbol == env->map[ImageCollectible].key
+		|| symbol == env->map[ImageExit].key)
+	{
+		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
+			env->images.other.ptr[ft_symbol_to_int(env->map, symbol)],
+			x * env->game.size_pixels, y * env->game.size_pixels);
+		return (true);
+	}
+	else if (symbol == env->map[ImageStartPosition].key)
+	{
+		mlx_put_image_to_window(env->mlx,
+			env->main_win.ptr,env->images.character.ptr[PositionUp],
+			x * env->game.size_pixels, y * env->game.size_pixels);
+		env->game.hero.x = x;
+		env->game.hero.y = y;
+		return (true);
+	}
+	return (false);
 }
 
 bool	ft_fill_window(t_environment	*env)
@@ -43,7 +75,8 @@ bool	ft_fill_window(t_environment	*env)
 		j = 0;
 		while (j < env->file.length)
 		{
-			if (ft_handler_symbols(env, env->file.lines[i][j], j, i) == false)
+			if (ft_handler_map(env, env->file.lines[i][j], j, i) == false
+				&& ft_handler_map_2(env, env->file.lines[i][j], j, i) == false)
 				return (false);
 			++j;
 		}

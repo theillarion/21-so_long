@@ -63,13 +63,13 @@ int	ft_action_key_press(int keycode, t_environment	*env)
 	{
 		env->game.is_action = true;
 		if (keycode == KeyLeft)
-			env->game.next_position = PositionLeft;
+			env->game.hero.next_position = PositionLeft;
 		else if (keycode == KeyUp)
-			env->game.next_position = PositionUp;
+			env->game.hero.next_position = PositionUp;
 		else if (keycode == KeyRight)
-			env->game.next_position = PositionRight;
+			env->game.hero.next_position = PositionRight;
 		else
-			env->game.next_position = PositionDown;
+			env->game.hero.next_position = PositionDown;
 	}
 	return (EXIT_SUCCESS);
 }

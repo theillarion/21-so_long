@@ -2,14 +2,14 @@
 
 #ifdef CURRENT_OS_LINUX
 
-static void	ft_destroy_mlx(void	*ptr)
+static void	ft_destroy_mlx(void	**ptr)
 {
-	mlx_destroy_display(ptr);
-	ptr = NULL;
+	mlx_destroy_display(*ptr);
+	*ptr = NULL;
 }
 #else
 
-static void	ft_destroy_mlx(void	*ptr)
+static void	ft_destroy_mlx(void	**ptr)
 {
 	(void)ptr;
 }
@@ -44,8 +44,24 @@ int	ft_deinitial_mlx(t_environment	*env)
 		env->main_win.ptr = NULL;
 	}
 	if (env->mlx != NULL)
-		ft_destroy_mlx(env->mlx);
+		ft_destroy_mlx(&env->mlx);
 	return (EXIT_SUCCESS);
+}
+
+static void	ft_deinitial_game(t_game	*game, t_ushort count_enemy)
+{
+	ushort i;
+
+	if (game == NULL || game->enemy == NULL)
+		return ;
+	i = 0;
+	while (i < count_enemy)
+	{
+		free(game->enemy[i]);
+		++i;
+	}
+	free(game->enemy);
+	game->enemy = NULL;
 }
 
 void	ft_main_deinitial(t_environment	*env)
@@ -53,13 +69,16 @@ void	ft_main_deinitial(t_environment	*env)
 	if (env == NULL)
 		return ;
 	ft_deinital_file(&env->file);
+	ft_deinitial_game(&env->game, (t_ushort)env->map[ImageEnemy].value);
 	ft_deinitial_array(NULL, &env->paths.character, NULL);
 	ft_deinitial_array(NULL, &env->paths.enemy, NULL);
 	ft_deinitial_array(NULL, &env->paths.other, NULL);
 	ft_deinitial_array(NULL, &env->paths.score, NULL);
+	ft_deinitial_array(NULL, &env->paths.destroy, NULL);
 	ft_deinitial_array(env->mlx, &env->images.character, mlx_destroy_image);
 	ft_deinitial_array(env->mlx, &env->images.enemy, mlx_destroy_image);
 	ft_deinitial_array(env->mlx, &env->images.other, mlx_destroy_image);
 	ft_deinitial_array(env->mlx, &env->images.score, mlx_destroy_image);
+	ft_deinitial_array(env->mlx, &env->images.destroy, mlx_destroy_image);
 	ft_deinitial_mlx(env);
 }

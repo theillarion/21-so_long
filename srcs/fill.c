@@ -20,6 +20,28 @@ bool	ft_fill_images(void	*mlx, const t_array	*src, t_array	*dest)
 	return (true);
 }
 
+void	ft_fill_enemy(t_environment	*env)
+{
+	t_ushort	i;
+
+	if (env == NULL)
+		return ;
+	i = 0;
+	if (env->map[ImageEnemy].value == 0)
+		return ;
+	env->game.enemy = (t_player **)malloc(env->map[ImageEnemy].value
+			* sizeof(t_player *));
+	while (i < env->map[ImageEnemy].value)
+	{
+		env->game.enemy[i] = (t_player *)malloc(sizeof(t_player));
+		env->game.enemy[i]->x = 0;
+		env->game.enemy[i]->y = 0;
+		env->game.enemy[i]->current_position = PositionUp;
+		env->game.enemy[i]->next_position = PositionUp;
+		++i;
+	}
+}
+
 bool	ft_main_fill(t_environment	*env)
 {
 	if (env == NULL)
@@ -30,12 +52,14 @@ bool	ft_main_fill(t_environment	*env)
 	if (env->game.size_pixels == 0)
 		return (false);
 	ft_set_size_window(env);
+	ft_fill_enemy(env);
 	if (ft_fill_paths(&env->paths, env->game.size_pixels) == false
 		|| !ft_fill_images(env->mlx, &env->paths.character,
 			&env->images.character)
 		|| !ft_fill_images(env->mlx, &env->paths.enemy, &env->images.enemy)
 		|| !ft_fill_images(env->mlx, &env->paths.other, &env->images.other)
-		|| !ft_fill_images(env->mlx, &env->paths.score, &env->images.score))
+		|| !ft_fill_images(env->mlx, &env->paths.score, &env->images.score)
+		|| !ft_fill_images(env->mlx, &env->paths.destroy, &env->images.destroy))
 		return (false);
 	env->main_win.ptr = mlx_new_window(env->mlx, env->main_win.common_width,
 			env->main_win.common_height, "So_long");
