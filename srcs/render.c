@@ -1,24 +1,33 @@
 #include "so_long.h"
+#include <math.h>
 
 static void	ft_do_action_2(t_environment	*env, t_player	*hero,
 				void	**images, int	*i)
 {
-	int	old_i;
 	int	old_x;
 	int	old_y;
+	int	step_x;
+	int	step_y;
 
 	old_x = hero->x * env->game.size_pixels;
 	old_y = hero->y * env->game.size_pixels;
-	old_i = *i;
 	if (ft_check_step(env, &hero->x, &hero->y, hero->current_position))
 		++*i;
-	if (old_i != *i)
+	else
+		return ;
+	step_x = (hero->x * env->game.size_pixels - old_x) / env->game.size_pixels;
+	step_y = (hero->y * env->game.size_pixels - old_y) / env->game.size_pixels;
+	while (old_x != hero->x * env->game.size_pixels
+		   || old_y != hero->y * env->game.size_pixels)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.other.ptr[ImageIdle], old_x, old_y);
+		old_x += step_x;
+		old_y += step_y;
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-			images[hero->current_position], hero->x * env->game.size_pixels,
-			hero->y * env->game.size_pixels);
+			images[hero->current_position], old_x, old_y);
+		mlx_do_sync(env->mlx);
+		usleep(4000);
 	}
 }
 

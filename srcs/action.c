@@ -56,10 +56,10 @@ void	ft_render_status_bar(t_environment	*env)
 
 int	ft_action_key_press(int keycode, t_environment	*env)
 {
-	if (env == NULL)
+	if (env == NULL || env->game.is_end_game)
 		return (EXIT_FAILURE);
-	else if (env->game.is_end_game != false || keycode == KeyLeft
-		|| keycode == KeyUp || keycode == KeyRight || keycode == KeyDown)
+	else if (keycode == KeyLeft || keycode == KeyUp || keycode ==
+		KeyRight || keycode == KeyDown)
 	{
 		env->game.is_action = true;
 		if (keycode == KeyLeft)

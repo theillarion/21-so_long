@@ -2,7 +2,7 @@
 
 void	ft_game_over(t_environment	*env)
 {
-	if (env == NULL)
+	if (env == NULL || env->game_over_win.ptr != NULL)
 		return ;
 	env->game.is_end_game = true;
 	env->game_over_win.ptr = mlx_new_window(env->mlx, 600, 400, "Game over!");
