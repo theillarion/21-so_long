@@ -17,12 +17,12 @@ int	main(int argc, char	**argv)
 		ft_fail(&env, "Error\nfill", false);
 	ft_putend_with_color_fd(COLOR_LGREEN, "Start game!", STDOUT_FILENO);
 	mlx_hook(env.main_win.ptr, KeyPress,
-		KeyPressMask, ft_action_key_press, &env);
+		KeyPressMask, ft_event_key_press, &env);
 	mlx_hook(env.main_win.ptr, KeyRelease,
-		KeyReleaseMask, ft_action_key_release, &env);
+		KeyReleaseMask, ft_event_key_release, &env);
 	mlx_hook(env.main_win.ptr, DestroyNotify,
 		ButtonReleaseMask, ft_success, &env);
-	mlx_loop_hook(env.mlx, render_next_frame, &env);
+	mlx_loop_hook(env.mlx, ft_render_next_frame, &env);
 	mlx_loop(env.mlx);
 	ft_success(&env);
 }

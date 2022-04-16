@@ -1,7 +1,7 @@
 #include "so_long.h"
 #include <math.h>
 
-static void	ft_do_action_2(t_environment	*env, t_player	*hero,
+static void	ft_do_step(t_environment	*env, t_player	*hero,
 				void	**images, int	*i)
 {
 	int	old_x;
@@ -18,7 +18,7 @@ static void	ft_do_action_2(t_environment	*env, t_player	*hero,
 	step_x = (hero->x * env->game.size_pixels - old_x) / env->game.size_pixels;
 	step_y = (hero->y * env->game.size_pixels - old_y) / env->game.size_pixels;
 	while (old_x != hero->x * env->game.size_pixels
-		   || old_y != hero->y * env->game.size_pixels)
+		|| old_y != hero->y * env->game.size_pixels)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			env->images.other.ptr[ImageIdle], old_x, old_y);
@@ -31,7 +31,7 @@ static void	ft_do_action_2(t_environment	*env, t_player	*hero,
 	}
 }
 
-static void	ft_do_action(t_environment	*env, t_player	*hero,
+static void	ft_do_actions(t_environment	*env, t_player	*hero,
 							void	**images, int	*i)
 {
 	if (env != NULL && hero->current_position != hero->next_position)
@@ -43,7 +43,7 @@ static void	ft_do_action(t_environment	*env, t_player	*hero,
 		++*i;
 	}
 	else if (env != NULL)
-		ft_do_action_2(env, hero, images, i);
+		ft_do_step(env, hero, images, i);
 	if (env != NULL && ((env->map[ImageCollectible].value == 0
 				&& env->map[ImageExit].value == 0) || env->game.is_end_game))
 	{
@@ -67,12 +67,13 @@ void	ft_do_action_enemy(t_environment	*env)
 	{
 		env->game.enemy[i]->next_position = rand() % 4;
 		env->game.hero_number = i;
-		ft_do_action(env, env->game.enemy[i], env->images.enemy.ptr, &count_do);
+		ft_do_actions(env, env->game.enemy[i],
+			env->images.enemy.ptr, &count_do);
 		++i;
 	}
 }
 
-int	render_next_frame(t_environment	*env)
+int	ft_render_next_frame(t_environment	*env)
 {
 	static int	i;
 	static int	tick;
@@ -91,7 +92,7 @@ int	render_next_frame(t_environment	*env)
 		return (EXIT_SUCCESS);
 	prev_i = i;
 	env->game.is_hero = true;
-	ft_do_action(env, &env->game.hero, env->images.character.ptr, &i);
+	ft_do_actions(env, &env->game.hero, env->images.character.ptr, &i);
 	if (prev_i != i)
 		ft_render_status_bar(env);
 	env->game.is_action = false;
