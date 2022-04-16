@@ -1,5 +1,4 @@
 #include "so_long.h"
-#include <stdio.h>
 
 void	ft_fail(t_environment	*env, const char	*msg_err, bool is_errno)
 {
