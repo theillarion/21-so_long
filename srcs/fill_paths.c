@@ -13,20 +13,6 @@ static void	*ft_get_name(const char	*filename, const char	*ext, int number)
 	ft_smart_free((void **)&buff);
 	return (result);
 }
-/*
-static void	ft_fill_paths_destroy(t_array	*array, const char	*dir)
-{
-	t_ushort	i;
-	char		*full_dir;
-
-	i = 0;
-	full_dir = ft_strjoin(dir, "destroy/destroy_");
-	while (i <= 8)
-	{
-		ft_push_move(array, ft_get_name(full_dir, ".xpm", (int)i));
-		++i;
-	}
-}*/
 
 static void	ft_fill_paths_range(t_array	*array, const char	*basedir,
 	const char	*dir, u_short	i_max)
@@ -46,31 +32,17 @@ static void	ft_fill_paths_range(t_array	*array, const char	*basedir,
 	}
 	ft_smart_free((void **)&full_dir);
 }
-/*
-
-static void	ft_fill_paths_scores(t_array	*array)
-{
-	t_ushort	i;
-
-	i = 0;
-	while (i <= 9)
-	{
-		ft_push_move(array, ft_get_name("images/numbers_16/number",
-										".xpm", (int)i));
-		++i;
-	}
-	ft_push_move(array, ft_strdup("images/word_score_16.xpm"));
-	ft_push_move(array, ft_strdup("images/idle_16.xpm"));
-	ft_push_move(array, ft_strdup("images/game_over_600_x_400.xpm"));
-}
-*/
 
 static void	ft_fill_all_paths(t_objects *paths, const char	*dir)
 {
-	ft_push_move(&paths->character, ft_strjoin(dir, "character/character_left.xpm"));
-	ft_push_move(&paths->character, ft_strjoin(dir, "character/character_up.xpm"));
-	ft_push_move(&paths->character, ft_strjoin(dir, "character/character_right.xpm"));
-	ft_push_move(&paths->character, ft_strjoin(dir, "character/character_down.xpm"));
+	ft_push_move(&paths->character, ft_strjoin(dir,
+			"character/character_left.xpm"));
+	ft_push_move(&paths->character, ft_strjoin(dir,
+			"character/character_up.xpm"));
+	ft_push_move(&paths->character, ft_strjoin(dir,
+			"character/character_right.xpm"));
+	ft_push_move(&paths->character, ft_strjoin(dir,
+			"character/character_down.xpm"));
 	ft_push_move(&paths->enemy, ft_strjoin(dir, "enemy/enemy_left.xpm"));
 	ft_push_move(&paths->enemy, ft_strjoin(dir, "enemy/enemy_up.xpm"));
 	ft_push_move(&paths->enemy, ft_strjoin(dir, "enemy/enemy_right.xpm"));
@@ -84,7 +56,6 @@ static void	ft_fill_all_paths(t_objects *paths, const char	*dir)
 	ft_push_move(&paths->score, ft_strdup("images/idle_16.xpm"));
 	ft_push_move(&paths->score, ft_strdup("images/game_over_600_x_400.xpm"));
 	ft_fill_paths_range(&paths->destroy, dir, "destroy/destroy_", 9);
-	//ft_fill_paths_scores(&paths->score);
 }
 
 bool	ft_fill_paths(t_objects	*paths, t_ushort	size_pixels)

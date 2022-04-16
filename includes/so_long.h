@@ -212,6 +212,10 @@ int			main(int argc, char	**argv);
 //			initial.c
 bool		ft_main_initial(t_environment	*env);
 
+//			destroy.c
+void		ft_destroy_display(void	**ptr);
+void		ft_destroy_hero(t_environment	*env);
+
 //			deinitial.c
 int			ft_deinitial_mlx(t_environment	*env);
 void		ft_main_deinitial(t_environment	*env);
@@ -226,6 +230,10 @@ void		ft_exit_fail(const char	*msg_err);
 void		ft_render_status_bar(t_environment	*env);
 int			ft_action_key_press(int keycode, t_environment	*env);
 int			ft_action_key_release(int keycode, t_environment	*env);
+
+//			check_step.c
+bool		ft_check_step(t_environment	*env, int	*x, int	*y,
+				t_ushort	current_position);
 
 //			render.c
 int			render_next_frame(t_environment	*env);
@@ -275,5 +283,8 @@ size_t		ft_calc_discharge(long long number);
 //			put.c
 void		ft_putend_with_color_fd(const char	*color, const char	*message,
 				int fd7);
+
+//			map.c
+t_ushort	ft_symbol_to_int(const t_pair	*map, const char symbol);
 
 #endif

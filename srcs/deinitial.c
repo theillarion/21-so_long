@@ -1,20 +1,5 @@
 #include "so_long.h"
 
-#ifdef CURRENT_OS_LINUX
-
-static void	ft_destroy_mlx(void	**ptr)
-{
-	mlx_destroy_display(*ptr);
-	*ptr = NULL;
-}
-#else
-
-static void	ft_destroy_mlx(void	**ptr)
-{
-	(void)ptr;
-}
-#endif
-
 static void	ft_deinital_file(t_file	*file)
 {
 	if (file == NULL || file->lines == NULL)
@@ -44,13 +29,13 @@ int	ft_deinitial_mlx(t_environment	*env)
 		env->main_win.ptr = NULL;
 	}
 	if (env->mlx != NULL)
-		ft_destroy_mlx(&env->mlx);
+		ft_destroy_display(&env->mlx);
 	return (EXIT_SUCCESS);
 }
 
 static void	ft_deinitial_game(t_game	*game, t_ushort count_enemy)
 {
-	ushort i;
+	ushort	i;
 
 	if (game == NULL || game->enemy == NULL)
 		return ;
