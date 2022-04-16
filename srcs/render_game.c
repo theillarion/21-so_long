@@ -26,13 +26,15 @@ static void	ft_do_step(t_environment	*env, t_player	*hero,
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			images[hero->current_position], old_x, old_y);
 		mlx_do_sync(env->mlx);
-		usleep(4000);
+		//usleep(4000);
 	}
 }
 
 static void	ft_do_actions(t_environment	*env, t_player	*hero,
 							void	**images, int	*i)
 {
+	if (env->game.is_end_game)
+		return ;
 	if (env != NULL && hero->current_position != hero->next_position)
 	{
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
