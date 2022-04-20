@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   deinitial.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:52:06 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:52:06 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	ft_deinital_file(t_file	*file)
@@ -16,7 +28,7 @@ static void	ft_deinital_file(t_file	*file)
 
 static void	ft_deinitial_game(t_game	*game, t_ushort count_enemy)
 {
-	ushort	i;
+	t_ushort	i;
 
 	if (game == NULL || game->enemy == NULL)
 		return ;

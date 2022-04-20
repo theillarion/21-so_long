@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_paths.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:52:18 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:53:42 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	*ft_get_name(const char	*filename, const char	*ext, int number)
@@ -15,10 +27,10 @@ static void	*ft_get_name(const char	*filename, const char	*ext, int number)
 }
 
 static void	ft_fill_paths_range(t_array	*array, const char	*basedir,
-	const char	*dir, u_short	i_max)
+	const char	*dir, t_ushort	i_max)
 {
-	char	*full_dir;
-	u_short	i;
+	char		*full_dir;
+	t_ushort	i;
 
 	if (basedir == NULL)
 		full_dir = ft_strdup(dir);

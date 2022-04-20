@@ -6,10 +6,10 @@ HEADER			=	${addprefix includes/,\
 					}
 HEADER_MLX		=	includes/mlx.h
 SRCS			=	${addprefix srcs/,\
-					array.c		check_step.c	deinitial.c	event.c	fill.c	fill_window.c	game_over.c\
-					initial.c	map.c			put.c		render_game.c	validation.c	calc.c\
-					create.c	destroy.c		exit.c		fill_paths.c	free.c			get.c\
-					main.c		math.c			read_file.c	render_status_bar.c\
+					array.c				calc.c		check_step.c	create.c		deinitial.c	destroy.c		event.c\
+					exit.c				fill.c		fill_paths.c	fill_window.c	free.c		game_over.c		get.c\
+					initial.c			main.c		map.c			put.c			read_file.c	render_game.c\
+					render_status_bar.c	sync.c		validation.c\
 					}
 
 OBJS			=	${SRCS:%.c=%.o}

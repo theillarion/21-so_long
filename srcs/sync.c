@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   sync.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 14:52:03 by glashli           #+#    #+#             */
-/*   Updated: 2022/04/20 14:52:03 by glashli          ###   ########.fr       */
+/*   Created: 2022/04/20 14:53:11 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:53:16 by glashli          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-bool	ft_create_mlx(t_environment	*env)
-{
-	int	width;
-	int	height;
+#ifdef CURRENT_OS_LINUX
 
-	width = 0;
-	height = 0;
-	if (env == NULL)
-		return (false);
-	env->mlx = mlx_init();
-	if (env->mlx == NULL)
-		return (false);
-	mlx_get_screen_size(env->mlx, &width, &height);
-	if (width == 0 || height == 0)
-		return (false);
-	env->main_win.width = width;
-	env->main_win.height = height * 0.9;
-	env->main_win.height -= HeightImageWord;
-	return (true);
+void	ft_do_sync(void	*mlx_ptr)
+{
+	mlx_do_sync(mlx_ptr);
 }
+#else
+
+void	ft_do_sync(void	*mlx_ptr)
+{
+	(void)mlx_ptr;
+}
+#endif

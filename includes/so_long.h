@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:53:20 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:55:43 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -122,7 +134,7 @@ typedef struct s_game
 	t_ushort	size_pixels;
 	t_player	hero;
 	t_player	**enemy;
-	u_short		hero_number;
+	t_ushort	hero_number;
 	bool		is_hero;
 	bool		is_action;
 	bool		is_end_game;
@@ -174,7 +186,7 @@ size_t			ft_calc_discharge(long long number);
 
 //				check_step.c
 bool			ft_check_step(t_environment	*env, int	*x, int	*y,
-	t_ushort	current_position);
+					t_ushort	current_position);
 
 //				create.c
 bool			ft_create_mlx(t_environment	*env);
@@ -225,11 +237,7 @@ bool			ft_main_initial(t_environment	*env);
 int				main(int argc, char	**argv);
 
 //				map.c
-t_ushort		ft_symbol_to_int(const t_pair	*map, const char symbol);
-
-//				math.c
-int				ft_pow(int basis, unsigned int exp);
-unsigned int	ft_abs(int number);
+short			ft_symbol_to_int(const t_pair	*map, const char symbol);
 
 //				put.c
 void			ft_putnbr_in_window(t_environment	*env, size_t number,
@@ -245,6 +253,12 @@ int				ft_render_next_frame(t_environment	*env);
 
 //				render_status_bar.c
 void			ft_render_status_bar(t_environment	*env);
+
+//				screen.c
+void			ft_get_size_screen(void *mlx_ptr, int *width, int *height);
+
+//				sync.c
+void			ft_do_sync(void	*mlx_ptr);
 
 //				validation.c
 bool			ft_validation(t_environment	*env);

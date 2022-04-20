@@ -1,5 +1,17 @@
-#ifndef INC_21_SO_LONG_IMAGES_H
-#define INC_21_SO_LONG_IMAGES_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   images.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:55:28 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:55:29 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef IMAGES_H
+# define IMAGES_H
 
 enum e_images_main
 {
@@ -48,4 +60,4 @@ enum e_images_score
 	WidthImageWord		= 80
 };
 
-#endif //INC_21_SO_LONG_IMAGES_H
+#endif

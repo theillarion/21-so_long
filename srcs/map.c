@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:52:43 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:54:25 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-t_ushort	ft_symbol_to_int(const t_pair	*map, const char symbol)
+short	ft_symbol_to_int(const t_pair	*map, const char symbol)
 {
 	if (map[ImageIdle].key == symbol)
 		return (ImageIdle);
@@ -14,5 +26,5 @@ t_ushort	ft_symbol_to_int(const t_pair	*map, const char symbol)
 		return (ImageEnemy);
 	else if (map[ImageStartPosition].key == symbol)
 		return (ImageStartPosition);
-	return (0);
+	return (-1);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_game.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:52:50 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:54:19 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	ft_do_step(t_environment	*env, t_player	*hero,
@@ -25,8 +37,7 @@ static void	ft_do_step(t_environment	*env, t_player	*hero,
 		old_y += step_y;
 		mlx_put_image_to_window(env->mlx, env->main_win.ptr,
 			images[hero->current_position], old_x, old_y);
-		mlx_do_sync(env->mlx);
-		//usleep(4000);
+		ft_do_sync(env->mlx);
 	}
 }
 
@@ -76,13 +87,13 @@ static void	ft_do_action_enemy(t_environment	*env)
 
 int	ft_render_next_frame(t_environment	*env)
 {
-	static int	i;
-	static int	tick;
+	static int	i = 0;
+	static int	tick = 0;
 	int			prev_i;
 
 	if (env == NULL || env->game.is_end_game)
 		return (EXIT_FAILURE);
-	if (env->map[ImageEnemy].value > 0 && tick == 10000)
+	if (env->map[ImageEnemy].value > 0 && tick == 3000)
 	{
 		ft_do_action_enemy(env);
 		tick = 0;

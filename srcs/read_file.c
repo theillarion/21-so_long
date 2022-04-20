@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:52:48 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:54:28 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static char	*ft_read_full_file(int fd)
@@ -58,7 +70,7 @@ bool	ft_get_file(t_file	*file, const char	*path)
 	if (fd < 0)
 		return (false);
 	buff = ft_read_full_file(fd);
-	if (buff == NULL || *buff == '\0')
+	if (buff == NULL || *buff == '\0' || buff[ft_strlen(buff) - 1] == '\n')
 		return (ft_return_and_close(fd));
 	file->lines = ft_split(buff, '\n');
 	ft_smart_free((void **)&buff);

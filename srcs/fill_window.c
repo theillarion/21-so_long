@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_window.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 14:52:21 by glashli           #+#    #+#             */
+/*   Updated: 2022/04/20 14:52:22 by glashli          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static bool	ft_handler_map_enemy(t_environment	*env, const char symbol,
 	const t_ushort x, const t_ushort y)
 {
-	static u_short	i;
+	static t_ushort	i;
 
 	if (env->game.enemy != NULL && symbol == env->map[ImageEnemy].key)
 	{
