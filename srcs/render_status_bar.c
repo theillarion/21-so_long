@@ -48,6 +48,10 @@ void	ft_render_status_bar(t_environment	*env)
 		else if (!ft_check_overflow(env, i))
 			is_overflow = true;
 		else
+		{
+			ft_putnbr_fd(i, STDOUT_FILENO);
+			ft_putchar_fd('\n', STDOUT_FILENO);
 			++i;
+		}
 	}
 }

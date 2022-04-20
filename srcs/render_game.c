@@ -39,8 +39,6 @@ static void	ft_do_step_on_axis(t_environment	*env,	t_player	*hero,
 		current_x += step_x;
 		current_y += step_y;
 	}
-	mlx_put_image_to_window(env->mlx, env->main_win.ptr,
-		images[hero->current_position], current_x, current_y);
 }
 
 static void	ft_do_step(t_environment	*env, t_player	*hero,
@@ -56,6 +54,9 @@ static void	ft_do_step(t_environment	*env, t_player	*hero,
 	else
 		return ;
 	ft_do_step_on_axis(env, hero, images, ft_create_axis(old_x, old_y));
+	mlx_put_image_to_window(env->mlx, env->main_win.ptr,
+		images[hero->current_position], hero->x * env->game.size_pixels,
+		hero->y * env->game.size_pixels);
 }
 
 static void	ft_do_actions(t_environment	*env, t_player	*hero,
