@@ -9,7 +9,7 @@ SRCS			=	${addprefix srcs/,\
 					array.c				calc.c		check_step.c	create.c		deinitial.c	destroy.c		event.c\
 					exit.c				fill.c		fill_paths.c	fill_window.c	free.c		game_over.c		get.c\
 					initial.c			main.c		map.c			put.c			read_file.c	render_game.c\
-					render_status_bar.c	sync.c		validation.c\
+					render_status_bar.c	sync.c		validation.c	axis.c\
 					}
 
 OBJS			=	${SRCS:%.c=%.o}

@@ -93,6 +93,12 @@ enum e_position
 	PositionDown,
 };
 
+typedef struct s_axis
+{
+	int x;
+	int y;
+}		t_axis;
+
 typedef struct s_file
 {
 	char	**lines;
@@ -178,6 +184,9 @@ void			ft_deinitial_array(void	*mlx, t_array	*array,
 					int (*ft_clean)(void *, void *));
 void			ft_push_copy(t_array	*array, const void	*elem);
 void			ft_push_move(t_array	*array, void	*elem);
+
+//				axis.c
+t_axis			ft_create_axis(int x, int y);
 
 //				calc.c
 t_ushort		ft_calc_size_pixel(const t_environment env,
