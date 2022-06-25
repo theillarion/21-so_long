@@ -21,3 +21,4 @@ trash/
 *dSYM/
 *.log
 *__
+includes/mlx.h
