@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: illarion <illarion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:53:20 by glashli           #+#    #+#             */
-/*   Updated: 2022/04/20 14:55:43 by glashli          ###   ########.fr       */
+/*   Updated: 2022/06/25 13:09:06 by illarion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include "mlx.h"
 # include "libft.h"
 # include "images.h"
+
+# define SPEED_ENEMY 5000
 
 # ifdef CURRENT_OS_LINUX
 

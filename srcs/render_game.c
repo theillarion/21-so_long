@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: glashli <glashli@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: illarion <illarion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:52:50 by glashli           #+#    #+#             */
-/*   Updated: 2022/04/20 15:12:16 by glashli          ###   ########.fr       */
+/*   Updated: 2022/06/25 13:08:31 by illarion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ft_render_next_frame(t_environment	*env)
 
 	if (env == NULL || env->game.is_end_game)
 		return (EXIT_FAILURE);
-	if (env->map[ImageEnemy].value > 0 && tick == 3000)
+	if (env->map[ImageEnemy].value > 0 && tick == SPEED_ENEMY)
 	{
 		ft_do_action_enemy(env);
 		tick = 0;
