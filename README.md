@@ -19,7 +19,7 @@
   * `clean`
   * `fclean`
   * `re`
-* ./so_long *path_to_map_dot_ber*
+* `./so_long` *path_to_map_dot_ber*
 ## Особенности проекта
 * Работоспособность на двух ОС: Mac OS (darwin) и Linux (Debian systems).
 * Библиотеки/функции/перечисления используются в зависимости от ОС.
